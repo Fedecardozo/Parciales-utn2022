@@ -1,0 +1,7 @@
+12:30:16 **** Incremental Build of configuration Debug for project parcialLaboratorio ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\parcialLaboratorio.o" "..\\src\\parcialLaboratorio.c" 
+gcc -o parcialLaboratorio.exe "src\\RelacionProductosUsuarios.o" "src\\arrayProducto.o" "src\\arrayTracking.o" "src\\arrayUsuario.o" "src\\funcionesPropias.o" "src\\menu.o" "src\\parcialLaboratorio.o" "src\\utn.o" 
+
+12:30:17 Build Finished. 0 errors, 0 warnings. (took 830ms)
+
