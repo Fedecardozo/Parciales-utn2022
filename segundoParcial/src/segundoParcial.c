@@ -9,6 +9,7 @@ int main(void) {
 
 	int opcion;
 	LinkedList* listaSalones = ll_newLinkedList();
+	LinkedList* listaJuegos = ll_newLinkedList();
 
 	do
 	{
@@ -52,9 +53,21 @@ int main(void) {
 				break;
 			case 7://controller_ListarArcade();
 				break;
-			case 8://controller_AltaJuego();
+			case 8:
+				if(!controller_AltaJuego(listaJuegos))
+				{
+					puts("\nSE DIO DE ALTA CON EXITO!");
+				}
+				else
+				{
+					puts("\nNO SE PUDO DAR DE ALTA!");
+				}
 				break;
-			case 9://controller_ListarJuego();
+			case 9:
+				if(controller_ListarJuego(listaJuegos)<0)
+				{
+					puts("\nNO HAY JUEGOS CARGADOS");
+				}
 				break;
 			case 10://controller_Informes();
 				break;

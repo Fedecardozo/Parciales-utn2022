@@ -49,7 +49,6 @@ int Salon_pedirDatos(Salon* s){
 }
 
 
-//FUNCIONES CON LA CONSOLA
 /// @fn imprime un Salon en filas
 /// @param imprimi un Salon
 int Salon_print(Salon* s)
