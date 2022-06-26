@@ -1,7 +1,5 @@
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "utn.h"
+#include "./inc/controller.h"
 
 int menu();
 
@@ -10,6 +8,7 @@ int main(void) {
 	setbuf(stdout, NULL);
 
 	int opcion;
+	LinkedList* listaSalones = ll_newLinkedList();
 
 	do
 	{
@@ -17,11 +16,25 @@ int main(void) {
 
 		switch(opcion)
 		{
-			case 1://controller_AltaSalon();
+			case 1:
+
+				if(!controller_AltaSalon(listaSalones))
+				{
+					puts("\nSE DIO DE ALTA CON EXITO!");
+				}
+				else
+				{
+					puts("\nNO SE PUDO DAR DE ALTA!");
+				}
+
 				break;
 			case 2://controller_RemoveSalon();
 				break;
-			case 3://controller_ListarSalon();
+			case 3:
+				if(controller_ListarSalon(listaSalones)<0)
+				{
+					puts("\nNO HAY SALONES CARGADOS");
+				}
 				break;
 			case 4://controller_AltaArcade();
 				break;
@@ -43,8 +56,10 @@ int main(void) {
 
 				break;
 			default:
+
 				puts("\nHUBO UN ERROR...\nHASTA LUEGO");
 				opcion = 11;
+
 				break;
 
 		}

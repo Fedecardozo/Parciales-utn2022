@@ -1,5 +1,5 @@
 
-#include"utn.h"
+#include "./inc/utn.h"
 
 //Prototypos
 static int esNumerica(char* cadena, int limite);
