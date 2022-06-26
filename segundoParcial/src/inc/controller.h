@@ -12,5 +12,6 @@
 
 int controller_AltaSalon(LinkedList* pArraySalon);
 int controller_ListarSalon(LinkedList* pArraySalon);
+int controller_RemoveSalon(LinkedList* pArraySalon);
 
 #endif /* INC_CONTROLLER_H_ */

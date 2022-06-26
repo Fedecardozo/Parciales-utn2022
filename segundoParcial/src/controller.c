@@ -52,3 +52,35 @@ int controller_ListarSalon(LinkedList* pArraySalon)
 	return retorno;
 
 }
+
+/// @fn int controller_RemoveSalon(LinkedList*)
+/// @brief borra un salon
+/// @param pArraySalon
+/// @return -1 lista nulla, -2 no existe id, -3 no lo quiere borrar
+/// -4 listaVacia
+int controller_RemoveSalon(LinkedList* pArraySalon)
+{
+	int retorno=-1;
+	int id;
+
+	if(pArraySalon != NULL)
+	{
+		if(ll_len(pArraySalon) > 0)
+		{
+			if(!utn_getNumero(&id, "\nIngrese numero ID:", "\nError Ingrese nuevamente: ", 0, 9999, 2))
+			{
+				retorno=Salon_remove(pArraySalon, id);
+			}
+
+		}
+		else
+		{
+			//Lista vacia
+			retorno = -4;
+		}
+
+	}
+
+	return retorno;
+
+}

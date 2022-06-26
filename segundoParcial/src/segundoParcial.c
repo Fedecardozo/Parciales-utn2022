@@ -28,7 +28,15 @@ int main(void) {
 				}
 
 				break;
-			case 2://controller_RemoveSalon();
+			case 2:
+				switch(controller_RemoveSalon(listaSalones))
+				{
+					case 0: puts("\nSE ELIMINO CON EXITO!"); break;
+					case -1: puts("\nHUBO UN ERROR!"); break;
+					case -2: puts("\nNO EXISTE EL ID!"); break;
+					case -3: puts("\nNO SE BORRO EL SALON!"); break;
+					case -4: puts("\nLISTA VACIA!"); break;
+				}
 				break;
 			case 3:
 				if(controller_ListarSalon(listaSalones)<0)
