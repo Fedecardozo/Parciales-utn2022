@@ -18,3 +18,6 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY org.eclipse.cdt.core 1 0 2022-05-18 12:29:34.334
 !MESSAGE Indexed 'ParcialSegundaParte' (8 sources, 7 headers) in 0,379 sec: 1.231 declarations; 3.337 references; 12 unresolved inclusions; 0 syntax errors; 132 unresolved names (2,8 %)
+
+!ENTRY org.eclipse.cdt.core 1 0 2022-05-18 12:35:32.245
+!MESSAGE Indexed 'TP_2' (7 sources, 6 headers) in 0,192 sec: 587 declarations; 1.378 references; 7 unresolved inclusions; 0 syntax errors; 75 unresolved names (3,7 %)

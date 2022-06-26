@@ -10,6 +10,7 @@ int main(void) {
 	int opcion;
 	LinkedList* listaSalones = ll_newLinkedList();
 	LinkedList* listaJuegos = ll_newLinkedList();
+	LinkedList* listaArcades = ll_newLinkedList();
 
 	do
 	{
@@ -45,13 +46,33 @@ int main(void) {
 					puts("\nNO HAY SALONES CARGADOS");
 				}
 				break;
-			case 4://controller_AltaArcade();
+			case 4:
+				if(!controller_AltaArcade(listaArcades))
+				{
+					puts("\nSE DIO DE ALTA CON EXITO!");
+				}
+				else
+				{
+					puts("\nNO SE PUDO DAR DE ALTA!");
+				}
 				break;
 			case 5://controller_ModificarArcade();
 				break;
-			case 6://controller_RemoveArcade();
+			case 6:
+				switch(controller_RemoveArcade(listaArcades))
+				{
+					case 0: puts("\nSE ELIMINO CON EXITO!"); break;
+					case -1: puts("\nHUBO UN ERROR!"); break;
+					case -2: puts("\nNO EXISTE EL ID!"); break;
+					case -3: puts("\nNO SE BORRO EL ARCADE!"); break;
+					case -4: puts("\nLISTA VACIA!"); break;
+				}
 				break;
-			case 7://controller_ListarArcade();
+			case 7:
+				if(controller_ListarArcade(listaArcades)<0)
+				{
+					puts("\nNO HAY ARCADES CARGADOS");
+				}
 				break;
 			case 8:
 				if(!controller_AltaJuego(listaJuegos))

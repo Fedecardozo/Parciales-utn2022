@@ -95,6 +95,98 @@ int controller_RemoveSalon(LinkedList* pArraySalon)
 
 }
 
+//CONTROLLER DE ARCADE
+
+/// @fn int controller_AltaArcade(LinkedList*)
+/// @brief Da de alta un Arcade
+/// @param pArrayArcade
+/// @return -1 NULL, 0 OK
+int controller_AltaArcade(LinkedList* pArrayArcade)
+{
+	int retorno=-1;
+	Arcade aux;
+	Arcade* newArcade;
+	int auxId;
+
+	if(pArrayArcade != NULL)
+	{
+		if(!Arcade_pedirDatos(&aux))
+		{
+			auxId = Arcade_generadorId();
+			if(auxId > 0)
+			{
+				aux.id = auxId;
+				newArcade = Arcade_newArcade(aux);
+
+				if(newArcade != NULL && !ll_add(pArrayArcade, newArcade))
+				{
+					retorno = 0;
+				}
+			}
+		}
+	}
+
+	return retorno;
+}
+
+/// @fn int controller_ListarArcade(LinkedList*)
+/// @brief Imprime lista Arcadees
+/// @param pArrayArcade
+/// @return -1 NULL, 0 ok
+int controller_ListarArcade(LinkedList* pArrayArcade)
+{
+	int retorno=-1;
+	Arcade* aux;
+
+	if(pArrayArcade != NULL && ll_len(pArrayArcade)>0)
+	{
+		retorno = 0;
+		for(int i=0; i<ll_len(pArrayArcade); i++)
+		{
+			aux = (Arcade*)ll_get(pArrayArcade, i);
+			if(aux != NULL)
+			{
+				//puts("Entro");
+				Arcade_print(aux);
+			}
+		}
+	}
+
+	return retorno;
+
+}
+
+/// @fn int controller_RemoveArcade(LinkedList*)
+/// @brief borra un Arcade
+/// @param pArrayArcade
+/// @return -1 lista nulla, -2 no existe id, -3 no lo quiere borrar
+/// -4 listaVacia
+int controller_RemoveArcade(LinkedList* pArrayArcade)
+{
+	int retorno=-1;
+	int id;
+
+	if(pArrayArcade != NULL)
+	{
+		if(ll_len(pArrayArcade) > 0)
+		{
+			if(!utn_getNumero(&id, "\nIngrese numero ID: ", "\nError Ingrese nuevamente: ", 0, 9999, 2))
+			{
+				retorno=Arcade_remove(pArrayArcade, id);
+			}
+
+		}
+		else
+		{
+			//Lista vacia
+			retorno = -4;
+		}
+
+	}
+
+	return retorno;
+
+}
 
 //CONTROLLER DE JUEGO
 

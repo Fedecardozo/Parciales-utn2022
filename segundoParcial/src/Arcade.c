@@ -20,6 +20,7 @@ Arcade* Arcade_newParametros(int id, char* nacion, int tipoSonido, int cantJugad
 		Arcade_setId(aux, id);
 		Arcade_setNacionalidad(aux, nacion);
 		Arcade_setJugadores(aux, cantJugadores);
+		Arcade_setTipoSonido(aux, tipoSonido);
 		Arcade_setFichas(aux, fichas);
 		Arcade_setFk_juego(aux, fk_Juego);
 		Arcade_setFk_salon(aux, fk_Salon);
@@ -111,7 +112,7 @@ int Arcade_getTipoSonido(Arcade* this,int* tipoSonido)
 	if(this != NULL && tipoSonido != NULL)
 	{
 		retorno = 0;
-		tipoSonido = this->tipoSonido;
+		*tipoSonido = this->tipoSonido;
 
 	}
 
@@ -139,7 +140,7 @@ int Arcade_getJugadores(Arcade* this,int* jugadores)
 	if(this != NULL && jugadores != NULL)
 	{
 		retorno = 0;
-		jugadores = this->cantidadJugadores;
+		*jugadores = this->cantidadJugadores;
 
 	}
 
@@ -167,7 +168,7 @@ int Arcade_getFichas(Arcade* this,int* fichas)
 	if(this != NULL && fichas != NULL)
 	{
 		retorno = 0;
-		fichas = this->maximoFichas;
+		*fichas = this->maximoFichas;
 
 	}
 
@@ -195,7 +196,7 @@ int Arcade_getFk_juego(Arcade* this,int* fk)
 	if(this != NULL && fk != NULL)
 	{
 		retorno = 0;
-		fk = this->fk_Juego;
+		*fk = this->fk_Juego;
 
 	}
 
@@ -223,7 +224,7 @@ int Arcade_getFk_salon(Arcade* this,int* fk)
 	if(this != NULL && fk != NULL)
 	{
 		retorno = 0;
-		fk = this->fk_Salon;
+		*fk = this->fk_Salon;
 
 	}
 
