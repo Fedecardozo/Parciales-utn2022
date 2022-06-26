@@ -2,6 +2,8 @@
 #include "./inc/validacionArcade.h"
 
 static int Arcade_ById(LinkedList* pArrayArcade,int id);
+static int queModifcar(Arcade* list,LinkedList* pArrayJuego);
+static int opcionesParaModifcar(int opc, Arcade* list, LinkedList* pArrayJuego);
 
 /// @fn int generadorId()
 /// @brief Genera un id automatico
@@ -153,3 +155,195 @@ int Arcade_remove(LinkedList* pArrayArcade, int id)
 
 	return retorno;
 }
+
+
+/// @fn modifica Arcade
+/// @brief modica un dato de Arcade
+/// @param recibe un tipo Arcade list
+/// @param recibe el tamanio del arraylen
+/// @param recibe el id que va a buscar
+/// @return 1 un exito 0 ok(-1)Datos nullos (-2) No se encontro ID
+/// (-3)Ingreso mal las opciones
+/// (-4)Ingreso mal los datos a modificar
+/// (-5)mal respuesta de si esta seguro
+/// (-6)mal respuesta si desea continuar
+int Arcade_edit(LinkedList* pArrayListArcade, int id,LinkedList* pArrayJuego)
+{
+
+	int retorno=-1;
+	int indice;
+	Arcade* aux;
+
+	if(pArrayListArcade!=NULL && id>0)
+	{
+
+		retorno=0;
+		indice=Arcade_ById(pArrayListArcade, id);
+
+		if(indice<0)
+		{
+
+			//ERROR NO ENCONTRO EL ID
+			retorno=-2;
+
+		}else if(indice>=0){
+
+			//-1 mal los datos -3 mal las opciones
+			//-4 mal datos a modificar
+			//-5 mal respuesta de si esta seguro
+			//-6 mal respuesta si desea continuar
+			aux = (Arcade*) ll_get(pArrayListArcade, indice);
+			retorno= queModifcar(aux,pArrayJuego);
+			if(!retorno && !ll_set(pArrayListArcade, indice, aux))
+			{
+				retorno=1;
+			}
+
+		}
+
+
+	}
+
+		return retorno;
+}
+
+/// @fn queModifcar
+/// @pre Segun la opcion ingresada por el usuario
+/// @post va a mostrar un msj y guardarlo en auxiliar
+/// De tipo Arcade
+/// @param opc la opcion para el switch
+/// @param indice para saber cual hay que modificar
+/// @param p el puntero Arcade para sobreecribir con
+/// el auxiliar
+/// @return 0 bien o -1 mal -3 mal las opciones
+/// -4 mal datos a modificar -5 mal respuesta si esta seguro
+/// -6 Mal la respuesta de si desea continuar
+static int queModifcar(Arcade* list,LinkedList* pArrayJuego){
+
+	int retorno=-1;
+	Arcade aux=*list;
+	int respuesta;
+	int opc;
+
+	if(list != NULL)
+	{
+
+		do{
+			retorno= utn_getNumero(&opc, "\nOpciones de lo que desea modificar"
+					"\n1-Cantidad de jugadores"
+					"\n2-Juego"
+					"\nIngrese opcion: ",
+					"\nError Ingrese nuevamente: ", 1, 2, 2);
+
+			if(retorno==0)
+			{
+				retorno= opcionesParaModifcar(opc, &aux,pArrayJuego);
+
+				if(retorno==0)
+				{
+					respuesta=preguntarSoN("\nEstas seguro? Si-No: ", 2, "\nIngrese [si] o [no]: ");
+
+					if(respuesta>0)
+					{
+						*list=aux;
+						printf("\nSE MODIFICO CON EXITO !");
+					}
+					if(respuesta==0)
+					{
+						printf("\nNO SE MODIFICARION LOS DATOS !");
+					}
+					else if(respuesta<0)
+					{
+						//Mal la respuesta de si esta seguro
+						retorno=-5;
+						break;
+					}
+
+
+				}
+				else
+				{
+					//Mal los datos a modificar
+					retorno=-4;
+					break;
+				}
+
+
+				respuesta = preguntarSoN("\nDesea continuar modificando? Si-No: ", 2, "\nIngrese [si] o [no]: ");
+				if(respuesta<0)
+				{
+					//Mal la respuesta de si desea continuar
+					retorno=-6;
+					break;
+				}
+			}
+			else
+			{
+				//mal las opciones
+				retorno =-3;
+				break;
+			}
+
+		}while(respuesta);
+
+	}
+
+	return retorno;
+}
+
+/// @fn opcionesParaModifcar
+/// @brief Modifica los datos segun la opcion
+/// @return -1 mal 0 bien
+static int opcionesParaModifcar(int opc, Arcade* list, LinkedList* pArrayJuego){
+
+ 	int retorno=-1;
+ 	Arcade aux = *list;
+
+ 	if(list != NULL)
+ 	{
+
+ 		switch (opc)
+ 		{
+
+ 			case 1:
+
+ 				retorno = utn_getNumero(&aux.cantidadJugadores, "\nIngrese cantidad jugadores: ",
+ 						"\nError! Ingrese nuevamente: " ,1,4, 2);
+
+ 				break;
+
+ 			case 2:
+
+ 				// listar juego, y que ingrese a id para cambiar de juego
+ 				if(!utn_getNumero(&aux.fk_Juego, "\nIngrese id del juego: ",
+ 				 			"\nError! Ingrese nuevamente: " ,1,9999, 2))
+ 				{
+ 					if(Juego_printById(pArrayJuego, aux.fk_Juego)>=0)
+ 					{
+ 						retorno = 0;
+ 					}
+ 					else
+ 					{
+ 						puts("\nNO EXISTE ID DEL JUEGO");
+ 					}
+ 				}
+
+ 				break;
+
+ 			default:
+ 				retorno = -1;
+ 			break;
+
+ 		}
+
+ 		if(retorno==0)
+ 		{
+ 			*list=aux;
+ 		}
+
+ 	}
+
+ 	return retorno;
+
+
+ }

@@ -57,6 +57,16 @@ int main(void) {
 				}
 				break;
 			case 5://controller_ModificarArcade();
+				switch(controller_ModificarArcade(listaArcades,listaJuegos))
+				{
+					case -1: puts("\nHUBO UN ERROR!"); break;
+					case -2: puts("\nNO EXISTE EL ID!"); break;
+					case -3: puts("\nOPCION INCORRECTA!"); break;
+					case -4: puts("\nDATOS INVALIDOS!"); break;
+					case -5:
+					case -6: puts("\nHUBO UN ERROR... INTENTELO MAS TARDE!"); break;
+					case -7: puts("\nLISTA VACIA!"); break;
+				}
 				break;
 			case 6:
 				switch(controller_RemoveArcade(listaArcades))

@@ -1,6 +1,8 @@
 
 #include "./inc/validacionJuego.h"
 
+static int Juego_ById(LinkedList* pArrayJuego,int id);
+
 /// @fn int generadorId()
 /// @brief Genera un id automatico
 /// @return -1datos nullos 0 hubo error al obtener nuevo id
@@ -69,4 +71,48 @@ int Juego_print(Juego* j)
 
 }
 
+/// @param LinkedList* pArrayJuego
+/// @param int id
+/// @return -1 datos nullos, indice del id
+static int Juego_ById(LinkedList* pArrayJuego,int id)
+{
+	int retorno=-1;
+	Juego* aux;
+	int idAux;
 
+	if(pArrayJuego != NULL && id >0)
+	{
+		for (int i = 0; i < ll_len(pArrayJuego); i++)
+		{
+			aux = (Juego*) ll_get(pArrayJuego, i);
+			Juego_getId(aux, &idAux);
+
+			if(idAux == id)
+			{
+				retorno=i;
+				break;
+			}
+
+		}
+	}
+
+	return retorno;
+
+}
+
+int Juego_printById(LinkedList* pArrayJuego,int id)
+{
+	int indice=-1;
+
+	if(pArrayJuego != NULL)
+	{
+		indice = Juego_ById(pArrayJuego, id);
+
+		if(indice >= 0)
+		{
+			Juego_print((Juego*)ll_get(pArrayJuego, indice));
+		}
+	}
+
+	return indice;
+}

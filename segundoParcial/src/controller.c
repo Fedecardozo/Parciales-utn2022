@@ -188,6 +188,46 @@ int controller_RemoveArcade(LinkedList* pArrayArcade)
 
 }
 
+///brief Modificar datos de pasajero
+///param path char*
+///param pArrayListPassenger LinkedList*
+///@return 1 un exito 0 ok(-1)Datos nullos (-2) No se encontro ID
+///(-3)Ingreso mal las opciones
+///(-4)Ingreso mal los datos a modificar
+///(-5)mal respuesta de si esta seguro
+///(-6)mal respuesta si desea continuar
+///(-7)Lista vacia
+int controller_ModificarArcade(LinkedList* pArrayArcade,LinkedList* pArrayJuego)
+{
+	int retorno =-1;
+	int id;
+
+	if(pArrayArcade != NULL)
+	{
+		if(ll_len(pArrayArcade) > 0)
+		{
+			//HASTA ACA EL RETORNO ES -1
+			if(!utn_getNumero(&id, "\nIngrese id:", "\nDato invalido. Ingrese nuevamente: ", 1, 9999, 2))
+			{
+				//RETORNO PUEDE 0 BIEN <0 QUE ALGO SALIO MAL
+				retorno=Arcade_edit(pArrayArcade,id,pArrayJuego);
+			}
+
+		}
+		else
+		{
+			//LISTA VACIA
+			retorno =-7;
+		}
+
+	}
+
+
+
+
+	return retorno;
+}
+
 //CONTROLLER DE JUEGO
 
 /// @fn int controller_AltaJuego(LinkedList*)
