@@ -1,5 +1,8 @@
 
 #include "./inc/controller.h"
+#define pathJuego "dataJuego.csv"
+#define pathSalon "dataSalon.csv"
+#define pathArcade "dataArcade.csv"
 
 int menu();
 
