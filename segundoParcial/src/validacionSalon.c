@@ -65,7 +65,7 @@ int Salon_print(Salon* s)
 	{
 
 		retorno=0;
-		printf("|%-10d|%-20s|%-20s|%-20s|\n"
+		printf("|%-10d|%-40s|%-30s|%-20s|\n"
 			,id,name,direccion,salon[tipoSalon-1]);
 	}
 

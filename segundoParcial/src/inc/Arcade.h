@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define LEN_NACIONALIDAD 20
+#define LEN_NACIONALIDAD 40
 
 typedef struct{
 

@@ -11,6 +11,11 @@
 #include "validacionSalon.h"
 #include "validacionJuego.h"
 #include "validacionArcade.h"
+#include "parser.h"
+
+//INICIO PROGRAMA
+int controller_Inicio(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego
+		,char*pathArcade,char*pathJuego,char*pathSalon);
 
 //INICIO SALON
 int controller_AltaSalon(LinkedList* pArraySalon);
@@ -29,6 +34,10 @@ int controller_ModificarArcade(LinkedList* pArrayArcade,LinkedList* pArrayJuego)
 int controller_AltaJuego(LinkedList* pArrayJuego);
 int controller_ListarJuego(LinkedList* pArrayJuego);
 //FIN JUEGO
+
+//FIN PROGRAMA
+int controller_FinPrograma(char*pathArcade,char*pathJuego,char*pathSalon,
+		LinkedList* pArrayArcade,LinkedList* pArrayJuego,LinkedList* pArraySalon);
 
 
 

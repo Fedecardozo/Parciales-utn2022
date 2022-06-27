@@ -81,7 +81,7 @@ int Arcade_print(Arcade* a)
 
 		//printf("%d",tipoSonido);
 		retorno=0;
-		printf("|%-10d|%-20s|%-10d|%-10d|%-20s|%-10d|%-10d|\n"
+		printf("|%-10d|%-40s|%-10d|%-10d|%-20s|%-10d|%-10d|\n"
 			,id,nacion,jugadores,fichas,sonidos[tipoSonido-1],fkSalon,fkJuego);
 	}
 

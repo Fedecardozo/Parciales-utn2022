@@ -6,8 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define SAL_LEN_NAME 20
-#define SAL_LEN_DIREC 30
+#define SAL_LEN_NAME 30
+#define SAL_LEN_DIREC 50
 
 typedef struct{
 

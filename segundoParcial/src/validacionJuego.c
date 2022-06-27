@@ -63,7 +63,7 @@ int Juego_print(Juego* j)
 	{
 
 		retorno=0;
-		printf("|%-10d|%-20s|%-20s|%-20s|\n"
+		printf("|%-10d|%-40s|%-40s|%-20s|\n"
 			,id,name,empresa,tiposJuegos[genero-1]);
 	}
 

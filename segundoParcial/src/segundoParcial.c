@@ -15,6 +15,15 @@ int main(void) {
 	LinkedList* listaJuegos = ll_newLinkedList();
 	LinkedList* listaArcades = ll_newLinkedList();
 
+	if(!controller_Inicio(listaArcades, listaSalones, listaJuegos, pathArcade, pathJuego, pathSalon))
+	{
+		puts("\nBIENVENIDO!");
+	}
+	else
+	{
+		exit(1);
+	}
+
 	do
 	{
 		opcion = menu();
@@ -107,13 +116,20 @@ int main(void) {
 				break;
 			case 11:
 
-				puts("HASTA LUEGO");
+				if(!controller_FinPrograma(pathArcade, pathJuego, pathSalon, listaArcades, listaJuegos, listaSalones))
+				{
+					puts("\nSE GUARDO CON EXITO! HASTA LUEGO!");
+				}
+				else
+				{
+					puts("\nHUBO UN PROBLEMA AL CERRAR EL PROGRAMA!");
+				}
 
 				break;
 			default:
 
 				puts("\nHUBO UN ERROR...\nHASTA LUEGO");
-				opcion = 11;
+				exit(1);
 
 				break;
 
