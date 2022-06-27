@@ -3,6 +3,11 @@
 
 // MODO TEXTO
 
+/// @fn int parser_funcArcade(FILE*, LinkedList*)
+/// @brief funcion parseo Salon(Texto)
+/// @param name
+/// @param pArray
+/// @return -1 nullos, 0 ok
 int parser_Salon(char*path, LinkedList* pArraySalon)
 {
 	int retorno = -1;
@@ -43,6 +48,11 @@ int parser_Salon(char*path, LinkedList* pArraySalon)
 	return retorno;
 }
 
+/// @fn int parser_funcArcade(FILE*, LinkedList*)
+/// @brief funcion parseo Juego(Texto)
+/// @param name
+/// @param pArray
+/// @return -1 nullos, 0 ok
 int parser_Juego(char*path, LinkedList* pArrayJuego)
 {
 	int retorno = -1;
@@ -84,6 +94,11 @@ int parser_Juego(char*path, LinkedList* pArrayJuego)
 	return retorno;
 }
 
+/// @fn int parser_funcArcade(FILE*, LinkedList*)
+/// @brief funcion parseo Arcade(Texto)
+/// @param name
+/// @param pArray
+/// @return -1 nullos, 0 ok
 int parser_Arcade(char*path, LinkedList* pArrayArcade)
 {
 	int retorno=-1;
@@ -134,6 +149,12 @@ int parser_Arcade(char*path, LinkedList* pArrayArcade)
 
 //MODO BINARIO
 
+/// @fn int parser_Bin(char*, LinkedList*, funcionParseo)
+/// @brief  carga datos de los archivos(binarios) a la linked
+/// @param path
+/// @param pArray
+/// @param parsear puntero a funcion
+/// @return -1 NULLS, 0 ok
 int parser_Bin(char*path, LinkedList* pArray,funcionParseo parsear)
 {
 	int retorno=-1;
@@ -162,6 +183,11 @@ int parser_Bin(char*path, LinkedList* pArray,funcionParseo parsear)
 	return retorno;
 }
 
+/// @fn int parser_funcArcade(FILE*, LinkedList*)
+/// @brief funcion parseo Arcade
+/// @param name
+/// @param pArray
+/// @return -1 nullos, 0 ok
 int parser_funcArcade(FILE* name,LinkedList* pArray)
 {
 	int retorno=-1;
@@ -185,6 +211,11 @@ int parser_funcArcade(FILE* name,LinkedList* pArray)
 	return retorno;
 }
 
+/// @fn int parser_funcArcade(FILE*, LinkedList*)
+/// @brief funcion parseo Juego
+/// @param name
+/// @param pArray
+/// @return -1 nullos, 0 ok
 int parser_funcJuego(FILE* name,LinkedList* pArray)
 {
 	int retorno=-1;
@@ -208,6 +239,11 @@ int parser_funcJuego(FILE* name,LinkedList* pArray)
 	return retorno;
 }
 
+/// @fn int parser_funcArcade(FILE*, LinkedList*)
+/// @brief funcion parseo Salon
+/// @param name
+/// @param pArray
+/// @return -1 nullos, 0 ok
 int parser_funcSalon(FILE* name,LinkedList* pArray)
 {
 	int retorno=-1;

@@ -5,6 +5,15 @@ static int controller_SaveBin(char*path, LinkedList* pArray,int size);
 
 //INICIO PROGRAMA
 
+/// @fn int controller_Inicio(LinkedList*, LinkedList*, LinkedList*, char*, char*, char*)
+/// @brief Inicio el programa cargando los datos de los archivos a las linkedLists
+/// @param pArrayArcade
+/// @param pArraySalon
+/// @param pArrayJuego
+/// @param pathArcade
+/// @param pathJuego
+/// @param pathSalon
+/// @return -1 Parametros Nulls o error al cargar desde los archivos, 0 ok
 int controller_Inicio(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego
 		,char*pathArcade,char*pathJuego,char*pathSalon)
 {
@@ -314,6 +323,65 @@ int controller_ListarJuego(LinkedList* pArrayJuego)
 
 }
 
+//INFORMES
+
+int controller_Informes(char letra,LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego)
+{
+	int retorno = -1;
+	int cantidad;
+
+	if(pArrayArcade != NULL &&  pArraySalon != NULL && pArrayJuego != NULL)
+	{
+		switch(letra)
+		{
+			case 'a':
+			case 'A':
+				cantidad = informes_Salon_Mas4Arcades(pArrayArcade, pArraySalon);
+				if(cantidad > 0)
+				{
+					printf("\nTotal de salones con mas de 4 arcades son: %d",cantidad);
+				}
+				else
+				{
+					puts("\nNo hay salones con mas de 4 arcades");
+				}
+				break;
+			case 'b':
+			case 'B':
+				break;
+			case 'c':
+			case 'C':
+				break;
+			case 'd':
+			case 'D':
+				break;
+			case 'e':
+			case 'E':
+				break;
+			case 'f':
+			case 'F':
+				break;
+			case 'g':
+			case 'G':
+				break;
+			case 'h':
+			case 'H':
+				break;
+		}
+		retorno=0;
+	}
+
+	return retorno;
+}
+
+//FIN PROGRAMA
+
+/// @fn int controller_SaveBin(char*, LinkedList*, int)
+/// @brief guarda en modo binario
+/// @param path
+/// @param pArray
+/// @param size
+/// @return -1 Nullos, 0 ok
 static int controller_SaveBin(char*path, LinkedList* pArray,int size)
 {
 	int retorno=-1;
@@ -341,8 +409,15 @@ static int controller_SaveBin(char*path, LinkedList* pArray,int size)
 	return retorno;
 }
 
-//FIN PROGRAMA
-
+/// @fn int controller_FinPrograma(char*, char*, char*, LinkedList*, LinkedList*, LinkedList*)
+/// @brief guarda los los datos en su archivo correspondiente
+/// @param pathArcade
+/// @param pathJuego
+/// @param pathSalon
+/// @param pArrayArcade
+/// @param pArrayJuego
+/// @param pArraySalon
+/// @return -1 Parametros Nulls o error al cargar desde los archivos, 0 ok
 int controller_FinPrograma(char*pathArcade,char*pathJuego,char*pathSalon, LinkedList* pArrayArcade,LinkedList* pArrayJuego,LinkedList* pArraySalon)
 {
 	int retorno = -1;

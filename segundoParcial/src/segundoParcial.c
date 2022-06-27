@@ -5,6 +5,7 @@
 #define pathArcade "dataArcade.csv"
 
 int menu();
+char subMenu();
 
 int main(void) {
 
@@ -14,10 +15,31 @@ int main(void) {
 	LinkedList* listaSalones = ll_newLinkedList();
 	LinkedList* listaJuegos = ll_newLinkedList();
 	LinkedList* listaArcades = ll_newLinkedList();
+	Arcade* aux;
 
 	if(!controller_Inicio(listaArcades, listaSalones, listaJuegos, pathArcade, pathJuego, pathSalon))
 	{
 		puts("\nBIENVENIDO!");
+		/*for(int i=0; i<4;i++)
+		{
+			aux = (Arcade*)ll_get(listaArcades, i);
+			Arcade_setFk_salon(aux, 5);
+		}
+		for(int i=4; i<9;i++)
+		{
+			aux = (Arcade*)ll_get(listaArcades, i);
+			Arcade_setFk_salon(aux, 8);
+		}
+		for(int i=9; i<13;i++)
+		{
+			aux = (Arcade*)ll_get(listaArcades, i);
+			Arcade_setFk_salon(aux, 7);
+		}
+		for(int i=16; i<23;i++)
+		{
+			aux = (Arcade*)ll_get(listaArcades, i);
+			Arcade_setFk_salon(aux, 11);
+		}*/
 	}
 	else
 	{
@@ -113,6 +135,9 @@ int main(void) {
 				}
 				break;
 			case 10://controller_Informes();
+
+				controller_Informes(subMenu(),listaArcades,listaSalones,listaJuegos);
+
 				break;
 			case 11:
 
@@ -160,4 +185,22 @@ int menu()
 			,"\nOPCION INVALIDA.\nIngrese nuevamente: ", 1, 11, 2);
 
 	return num;
+}
+
+char subMenu()
+{
+	char letra='z';
+
+	utn_getCaracter(&letra,"\nA) Listado de los salones con mas de 4 arcade"
+			"\nB)Listado de los arcades para  mas  de  2  jugadores"
+			"\nC)Informacion de un salon en especifico"
+			"\nD)Filtro salones"
+			"\nE)Lista de los arcades de un salon en especifico"
+			"\nF)Salon con mas arcades"
+			"\nG)Listado de los arcades con sonido MONO y genero de juego PLATAFORMA"
+			"\nH)Salir de sub menu"
+			"\nINGRESE OPCION: "
+			,"\nOPCION INVALIDA.\nIngrese nuevamente: ", 'a', 'h', 2);
+
+	return letra;
 }

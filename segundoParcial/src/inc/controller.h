@@ -35,6 +35,9 @@ int controller_AltaJuego(LinkedList* pArrayJuego);
 int controller_ListarJuego(LinkedList* pArrayJuego);
 //FIN JUEGO
 
+//INFORMES
+int controller_Informes(char letra,LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego);
+
 //FIN PROGRAMA
 int controller_FinPrograma(char*pathArcade,char*pathJuego,char*pathSalon,
 		LinkedList* pArrayArcade,LinkedList* pArrayJuego,LinkedList* pArraySalon);
