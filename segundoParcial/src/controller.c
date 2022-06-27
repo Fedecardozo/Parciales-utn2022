@@ -101,7 +101,7 @@ int controller_RemoveSalon(LinkedList* pArraySalon)
 /// @brief Da de alta un Arcade
 /// @param pArrayArcade
 /// @return -1 NULL, 0 OK
-int controller_AltaArcade(LinkedList* pArrayArcade)
+int controller_AltaArcade(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego)
 {
 	int retorno=-1;
 	Arcade aux;
@@ -110,7 +110,7 @@ int controller_AltaArcade(LinkedList* pArrayArcade)
 
 	if(pArrayArcade != NULL)
 	{
-		if(!Arcade_pedirDatos(&aux))
+		if(!Arcade_pedirDatos(&aux,pArrayJuego,pArraySalon))
 		{
 			auxId = Arcade_generadorId();
 			if(auxId > 0)
@@ -202,7 +202,7 @@ int controller_ModificarArcade(LinkedList* pArrayArcade,LinkedList* pArrayJuego)
 	int retorno =-1;
 	int id;
 
-	if(pArrayArcade != NULL)
+	if(pArrayArcade != NULL && pArrayJuego != NULL)
 	{
 		if(ll_len(pArrayArcade) > 0)
 		{
@@ -210,7 +210,7 @@ int controller_ModificarArcade(LinkedList* pArrayArcade,LinkedList* pArrayJuego)
 			if(!utn_getNumero(&id, "\nIngrese id:", "\nDato invalido. Ingrese nuevamente: ", 1, 9999, 2))
 			{
 				//RETORNO PUEDE 0 BIEN <0 QUE ALGO SALIO MAL
-				retorno=Arcade_edit(pArrayArcade,id,pArrayJuego);
+				retorno=Arcade_edit(pArrayArcade,id,pArrayJuego,controller_ListarJuego);
 			}
 
 		}

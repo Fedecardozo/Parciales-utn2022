@@ -19,7 +19,7 @@ int controller_RemoveSalon(LinkedList* pArraySalon);
 //FIN SALON
 
 //INICIO ARCADE
-int controller_AltaArcade(LinkedList* pArrayArcade);
+int controller_AltaArcade(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego);
 int controller_RemoveArcade(LinkedList* pArrayArcade);
 int controller_ListarArcade(LinkedList* pArrayArcade);
 int controller_ModificarArcade(LinkedList* pArrayArcade,LinkedList* pArrayJuego);

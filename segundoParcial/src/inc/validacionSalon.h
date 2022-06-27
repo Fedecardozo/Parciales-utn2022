@@ -13,5 +13,6 @@ int Salon_generadorId();
 int Salon_pedirDatos(Salon* s);
 int Salon_print(Salon* s);
 int Salon_remove(LinkedList* pArraySalon, int id);
+int Salon_printByIdMsj(LinkedList* pArraySalon,int id,char* msj,char* msjError);
 
 #endif /* INC_VALIDACIONSALON_H_ */

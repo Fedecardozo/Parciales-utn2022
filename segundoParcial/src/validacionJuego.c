@@ -29,9 +29,9 @@ int Juego_pedirDatos(Juego* j){
 				"\nError! Nombre invalido ", JUE_LEN_NAME, 2)
 			&& !utn_getString(j1.empresa, "\nIngrese nombre empresa: ", "\nError! empresa invalida",
 					JUE_LEN_EMPRESA, 2)
-			&& !utn_getNumero(&j1.genero, "\n1- Acción"
+			&& !utn_getNumero(&j1.genero, "\n1- Plataforma"
 					"\n2- Aventura"
-					"\n3- Deportivo"
+					"\n3- Laberinto"
 					"\n4- Estrategia"
 					"\n5- Otro"
 					"\nIngrese tipo Juego: ", "\nError! Ingrese nuevamente: ",
@@ -56,7 +56,7 @@ int Juego_print(Juego* j)
 	char empresa[JUE_LEN_EMPRESA];
 	int genero;
 
-	char tiposJuegos [5][20]={{"Acción"},{"Aventura"},{"Deportivo"},{"Estrategia"},{"Otro"}};
+	char tiposJuegos [5][20]={{"Plataforma"},{"Aventura"},{"Laberinto"},{"Estrategia"},{"Otro"}};
 
 	if(j != NULL && !Juego_getId(j, &id) && !Juego_getName(j, name)
 			&& !Juego_getEmpresa(j, empresa) && !Juego_getGenero(j, &genero))
@@ -111,6 +111,28 @@ int Juego_printById(LinkedList* pArrayJuego,int id)
 		if(indice >= 0)
 		{
 			Juego_print((Juego*)ll_get(pArrayJuego, indice));
+		}
+	}
+
+	return indice;
+}
+
+int Juego_printByIdMsj(LinkedList* pArrayJuego,int id,char* msj,char* msjError)
+{
+	int indice=-1;
+
+	if(pArrayJuego != NULL && msj != NULL && msjError != NULL)
+	{
+		indice = Juego_ById(pArrayJuego, id);
+
+		if(indice >= 0)
+		{
+			puts(msj);
+			Juego_print((Juego*)ll_get(pArrayJuego, indice));
+		}
+		else
+		{
+			puts(msjError);
 		}
 	}
 

@@ -2,8 +2,8 @@
 #include "./inc/validacionArcade.h"
 
 static int Arcade_ById(LinkedList* pArrayArcade,int id);
-static int queModifcar(Arcade* list,LinkedList* pArrayJuego);
-static int opcionesParaModifcar(int opc, Arcade* list, LinkedList* pArrayJuego);
+static int queModifcar(Arcade* list,LinkedList* pArrayJuego,pFuncListar listJuego);
+static int opcionesParaModifcar(int opc, Arcade* list, LinkedList* pArrayJuego,pFuncListar listJuego);
 
 /// @fn int generadorId()
 /// @brief Genera un id automatico
@@ -20,7 +20,8 @@ int Arcade_generadorId()
 /// @pre pide datos para llenar un Arcade y los valida
 /// @param recibi un tipo Arcade
 /// @return un 0 si esta tod bien o -1 si esta mal
-int Arcade_pedirDatos(Arcade* a){
+int Arcade_pedirDatos(Arcade* a,LinkedList* pArrayJuego,LinkedList* pArraySalon)
+{
 
 	Arcade a1;
 	int retorno=-1;
@@ -28,7 +29,13 @@ int Arcade_pedirDatos(Arcade* a){
 	if(a!=NULL)
 	{
 
-		if(!utn_getStringMayusculayMinuscula(a1.nacionalidad,"\nIngrese nacionalida:",
+		if(!utn_getNumero(&a1.fk_Juego, "\nIngrese Id del juego: ", "\nError! Ingrese nuevamente: ",
+				1, 9999, 2) && Juego_printByIdMsj(pArrayJuego, a1.fk_Juego,
+						"\n**** Se agrego este juego ****", "No existe tal juego en el sistema") >=0
+			&& !utn_getNumero(&a1.fk_Salon, "\nIngrese Id del salon: ", "\nError! Ingrese nuevamente: ",
+					1, 9999, 2) && Salon_printByIdMsj(pArraySalon, a1.fk_Salon,
+							"\n**** Se agrego este salon ****","No existe tal salon en el sistema") >=0
+			&& !utn_getStringMayusculayMinuscula(a1.nacionalidad,"\nIngrese nacionalida:",
 				"\nError! nacionalidad invalida ", LEN_NACIONALIDAD, 2)
 			&& !utn_getNumero(&a1.cantidadJugadores, "\nIngrese cantidad de jugadores: ",
 					"\nError! ingrese nuevamente: ", 1, 4, 2)
@@ -61,18 +68,21 @@ int Arcade_print(Arcade* a)
 	int tipoSonido;
 	int jugadores;
 	int fichas;
+	int fkSalon;
+	int fkJuego;
 
 	char sonidos [4][20]={{"Mono"},{"Stereo"},{"Ultra Sonido"},{"Otro"}};
 
 	if(a != NULL && !Arcade_getId(a, &id) && !Arcade_getNacionalidad(a, nacion)
 			&& !Arcade_getJugadores(a, &jugadores) && !Arcade_getTipoSonido(a, &tipoSonido)
-			&& !Arcade_getFichas(a, &fichas))
+			&& !Arcade_getFichas(a, &fichas) && !Arcade_getFk_juego(a, &fkJuego)
+			&& !Arcade_getFk_salon(a, &fkSalon))
 	{
 
 		//printf("%d",tipoSonido);
 		retorno=0;
-		printf("|%-10d|%-20s|%-10d|%-10d|%-20s|\n"
-			,id,nacion,jugadores,fichas,sonidos[tipoSonido-1]);
+		printf("|%-10d|%-20s|%-10d|%-10d|%-20s|%-10d|%-10d|\n"
+			,id,nacion,jugadores,fichas,sonidos[tipoSonido-1],fkSalon,fkJuego);
 	}
 
 	return retorno;
@@ -167,14 +177,14 @@ int Arcade_remove(LinkedList* pArrayArcade, int id)
 /// (-4)Ingreso mal los datos a modificar
 /// (-5)mal respuesta de si esta seguro
 /// (-6)mal respuesta si desea continuar
-int Arcade_edit(LinkedList* pArrayListArcade, int id,LinkedList* pArrayJuego)
+int Arcade_edit(LinkedList* pArrayListArcade, int id,LinkedList* pArrayJuego,pFuncListar listJuego)
 {
 
 	int retorno=-1;
 	int indice;
 	Arcade* aux;
 
-	if(pArrayListArcade!=NULL && id>0)
+	if(pArrayListArcade!=NULL && id>0 && pArrayJuego != NULL && listJuego != NULL)
 	{
 
 		retorno=0;
@@ -193,7 +203,7 @@ int Arcade_edit(LinkedList* pArrayListArcade, int id,LinkedList* pArrayJuego)
 			//-5 mal respuesta de si esta seguro
 			//-6 mal respuesta si desea continuar
 			aux = (Arcade*) ll_get(pArrayListArcade, indice);
-			retorno= queModifcar(aux,pArrayJuego);
+			retorno= queModifcar(aux,pArrayJuego,listJuego);
 			if(!retorno && !ll_set(pArrayListArcade, indice, aux))
 			{
 				retorno=1;
@@ -218,14 +228,14 @@ int Arcade_edit(LinkedList* pArrayListArcade, int id,LinkedList* pArrayJuego)
 /// @return 0 bien o -1 mal -3 mal las opciones
 /// -4 mal datos a modificar -5 mal respuesta si esta seguro
 /// -6 Mal la respuesta de si desea continuar
-static int queModifcar(Arcade* list,LinkedList* pArrayJuego){
+static int queModifcar(Arcade* list,LinkedList* pArrayJuego,pFuncListar listJuego){
 
 	int retorno=-1;
 	Arcade aux=*list;
 	int respuesta;
 	int opc;
 
-	if(list != NULL)
+	if(list != NULL && pArrayJuego != NULL && listJuego != NULL)
 	{
 
 		do{
@@ -237,7 +247,7 @@ static int queModifcar(Arcade* list,LinkedList* pArrayJuego){
 
 			if(retorno==0)
 			{
-				retorno= opcionesParaModifcar(opc, &aux,pArrayJuego);
+				retorno= opcionesParaModifcar(opc, &aux,pArrayJuego,listJuego);
 
 				if(retorno==0)
 				{
@@ -294,12 +304,13 @@ static int queModifcar(Arcade* list,LinkedList* pArrayJuego){
 /// @fn opcionesParaModifcar
 /// @brief Modifica los datos segun la opcion
 /// @return -1 mal 0 bien
-static int opcionesParaModifcar(int opc, Arcade* list, LinkedList* pArrayJuego){
+static int opcionesParaModifcar(int opc, Arcade* list, LinkedList* pArrayJuego,pFuncListar listJuego){
 
  	int retorno=-1;
  	Arcade aux = *list;
+ 	int fkJuegoActual;
 
- 	if(list != NULL)
+ 	if(list != NULL && pArrayJuego != NULL && listJuego != NULL)
  	{
 
  		switch (opc)
@@ -315,17 +326,20 @@ static int opcionesParaModifcar(int opc, Arcade* list, LinkedList* pArrayJuego){
  			case 2:
 
  				// listar juego, y que ingrese a id para cambiar de juego
- 				if(!utn_getNumero(&aux.fk_Juego, "\nIngrese id del juego: ",
+ 				if(!listJuego(pArrayJuego) &&
+ 					!utn_getNumero(&aux.fk_Juego, "\nIngrese id del juego: ",
  				 			"\nError! Ingrese nuevamente: " ,1,9999, 2))
  				{
- 					if(Juego_printById(pArrayJuego, aux.fk_Juego)>=0)
+ 					Arcade_getFk_juego(list, &fkJuegoActual);
+
+ 					if(fkJuegoActual>0 && Juego_printByIdMsj(pArrayJuego,fkJuegoActual,"\n\t\t*** JUEGO ACTUAL ***",
+ 							"\nNo existe tal juego!")>=0
+ 						&& Juego_printByIdMsj(pArrayJuego, aux.fk_Juego,"\n\t**** SE REEMPLAZARA CON ESTE JUEGO ****",
+ 							"\nNo existe tal juego!")>=0)
  					{
  						retorno = 0;
  					}
- 					else
- 					{
- 						puts("\nNO EXISTE ID DEL JUEGO");
- 					}
+
  				}
 
  				break;

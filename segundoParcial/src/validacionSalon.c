@@ -22,7 +22,6 @@ int Salon_pedirDatos(Salon* s){
 
 	Salon s1;
 	int retorno=-1;
-	//char salon [5][20]={{"Shopping"},{"Restaurante"},{"Bar"},{"Hotel"},{"Otro"}};
 
 	if(s!=NULL)
 	{
@@ -33,7 +32,7 @@ int Salon_pedirDatos(Salon* s){
 					SAL_LEN_DIREC, 2)
 			&& !utn_getNumero(&s1.tipoSalon, "\n1- Shopping"
 					"\n2- Restaurante"
-					"\n3- Bar"
+					"\n3- Local"
 					"\n4- Hotel"
 					"\n5- Otro"
 					"\nIngrese tipo salon: ", "\nError! Ingrese nuevamente: ",
@@ -149,4 +148,26 @@ int Salon_remove(LinkedList* pArraySalon, int id)
 	}
 
 	return retorno;
+}
+
+int Salon_printByIdMsj(LinkedList* pArraySalon,int id,char* msj,char* msjError)
+{
+	int indice=-1;
+
+	if(pArraySalon != NULL && msj != NULL && msjError != NULL)
+	{
+		indice = Salon_ById(pArraySalon, id);
+
+		if(indice >= 0)
+		{
+			puts(msj);
+			Salon_print((Salon*)ll_get(pArraySalon, indice));
+		}
+		else
+		{
+			puts(msjError);
+		}
+	}
+
+	return indice;
 }

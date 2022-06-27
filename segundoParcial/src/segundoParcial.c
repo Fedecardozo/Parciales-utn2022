@@ -47,7 +47,7 @@ int main(void) {
 				}
 				break;
 			case 4:
-				if(!controller_AltaArcade(listaArcades))
+				if(!controller_AltaArcade(listaArcades,listaSalones,listaJuegos))
 				{
 					puts("\nSE DIO DE ALTA CON EXITO!");
 				}
