@@ -41,8 +41,8 @@ int controller_Informes(char letra,LinkedList* pArrayArcade,LinkedList* pArraySa
 
 //FIN PROGRAMA
 int controller_FinPrograma(char*pathArcade,char*pathJuego,char*pathSalon,
-		LinkedList* pArrayArcade,LinkedList* pArrayJuego,LinkedList* pArraySalon);
-
+		LinkedList* pArrayArcade,LinkedList* pArrayJuego,LinkedList* pArraySalon
+		,char* pathId);
 
 
 #endif /* INC_CONTROLLER_H_ */

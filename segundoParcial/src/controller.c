@@ -2,6 +2,7 @@
 #include "./inc/controller.h"
 
 static int controller_SaveBin(char*path, LinkedList* pArray,int size);
+static int controller_SaveId(char* pathId);
 
 //INICIO PROGRAMA
 
@@ -476,6 +477,42 @@ static int controller_SaveBin(char*path, LinkedList* pArray,int size)
 	return retorno;
 }
 
+/// @fn int controller_SaveId(char*)
+/// @brief guardas los id en un archivo
+/// @param pathId
+/// @return -1 nullos o error, 0 OK
+static int controller_SaveId(char* pathId)
+{
+	int retorno = -1;
+	FILE* fileId;
+	int arcade_ultimoId;
+	int salon_ultimoId;
+	int juego_ultimoId;
+
+	if(pathId != NULL)
+	{
+		fileId = fopen(pathId,"w+");
+
+		if(fileId != NULL)
+		{
+			salon_ultimoId = Salon_generadorId()-1;
+			juego_ultimoId = Juego_generadorId()-1;
+			arcade_ultimoId = Arcade_generadorId()-1;
+
+			if(salon_ultimoId > 0 && juego_ultimoId > 0 && arcade_ultimoId >0)
+			{
+				fprintf(fileId,"%d\n%d\n%d",salon_ultimoId,juego_ultimoId,arcade_ultimoId);
+				retorno = 0;
+			}
+
+			fclose(fileId);
+		}
+
+	}
+
+	return retorno;
+}
+
 /// @fn int controller_FinPrograma(char*, char*, char*, LinkedList*, LinkedList*, LinkedList*)
 /// @brief guarda los los datos en su archivo correspondiente
 /// @param pathArcade
@@ -485,17 +522,20 @@ static int controller_SaveBin(char*path, LinkedList* pArray,int size)
 /// @param pArrayJuego
 /// @param pArraySalon
 /// @return -1 Parametros Nulls o error al cargar desde los archivos, 0 ok
-int controller_FinPrograma(char*pathArcade,char*pathJuego,char*pathSalon, LinkedList* pArrayArcade,LinkedList* pArrayJuego,LinkedList* pArraySalon)
+int controller_FinPrograma(char*pathArcade,char*pathJuego,char*pathSalon, LinkedList* pArrayArcade,LinkedList* pArrayJuego,
+		LinkedList* pArraySalon,char* pathId)
 {
 	int retorno = -1;
 
 	if(pathArcade != NULL && pathJuego != NULL && pathSalon != NULL
-		&& pArrayArcade != NULL && pArrayJuego != NULL && pArraySalon != NULL)
+		&& pArrayArcade != NULL && pArrayJuego != NULL && pArraySalon != NULL
+		&& pathId != NULL)
 	{
 		puts("\nESPERE! GUARDANDO INFORMACION...");
 		if(!controller_SaveBin(pathArcade, pArrayArcade, sizeof(Arcade))
 		   && !controller_SaveBin(pathSalon, pArraySalon, sizeof(Salon))
-		   && !controller_SaveBin(pathJuego, pArrayJuego, sizeof(Juego)))
+		   && !controller_SaveBin(pathJuego, pArrayJuego, sizeof(Juego))
+		   && !controller_SaveId(pathId))
 		{
 			retorno = 0;
 		}

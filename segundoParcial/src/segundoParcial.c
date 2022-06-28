@@ -21,6 +21,7 @@ int main(void) {
 	if(!controller_Inicio(listaArcades, listaSalones, listaJuegos, pathArcade, pathJuego, pathSalon,pathId))
 	{
 		puts("\nBIENVENIDO!");
+
 		//printf("\nId Salon: %d - Id Juego: %d - Id Arcade: %d",Salon_generadorId(),Juego_generadorId(),Arcade_generadorId());
 	}
 	else
@@ -126,7 +127,7 @@ int main(void) {
 				break;
 			case 11:
 
-				if(!controller_FinPrograma(pathArcade, pathJuego, pathSalon, listaArcades, listaJuegos, listaSalones))
+				if(!controller_FinPrograma(pathArcade, pathJuego, pathSalon, listaArcades, listaJuegos, listaSalones,pathId))
 				{
 					puts("\nSE GUARDO CON EXITO! HASTA LUEGO!");
 				}

@@ -51,8 +51,8 @@ int Salon_pedirDatos(Salon* s){
 			&& !utn_getDomicilio(s1.direccion, "\nIngrese nombre completo de la calle: ", "\nError! direccion invalida",
 					SAL_LEN_DIREC, 2)
 			&& !utn_getNumero(&s1.tipoSalon, "\n1- Shopping"
-					"\n2- Restaurante"
-					"\n3- Local"
+					"\n2- Local"
+					"\n3- Bar"
 					"\n4- Hotel"
 					"\n5- Otro"
 					"\nIngrese tipo salon: ", "\nError! Ingrese nuevamente: ",
