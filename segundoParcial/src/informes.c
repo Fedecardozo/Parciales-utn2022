@@ -2,6 +2,8 @@
 #include "./inc/informes.h"
 
 static int informes_ordenArcade(void* aux1,void* aux2);
+static int informes_sortNameJuego(void* aux1,void* aux2);
+static int informes_PrintArcadesJuegos(LinkedList* pArrayArcade,LinkedList* pArrayJuego);
 
 int informes_Salon_MasCuatroArcades(LinkedList* pArrayArcade,LinkedList* pArraySalon)
 {
@@ -363,6 +365,121 @@ static int informes_ordenArcade(void* aux1,void* aux2)
 	return retorno;
 }
 
+//G) Listar los arcades que cumplan con sonido MONO y el género de su juego sea PLATAFORMA, informando nombre
+//de juego, género y cantidad de jugadores que soporta el arcade. El listado deberá estar ordenado por nombre de juego
+int informes_Arcades(LinkedList* pArrayArcade,LinkedList* pArrayJuego)
+{
+	int retorno = -1;
+	Arcade* auxArcade;
+	Juego* auxJuego;
+	int fkJuego;
+	int idJuego;
+	int genero;
+	LinkedList* cloneArcade=ll_newLinkedList();
+	LinkedList* cloneJuego=ll_newLinkedList();
+
+	if(pArrayArcade != NULL && pArrayJuego != NULL)
+	{
+		cloneJuego = ll_clone(pArrayJuego);
+		ll_sort(cloneJuego, informes_sortNameJuego, 1);
+		retorno = 0;
+		for(int i=0; i<ll_len(cloneJuego); i++)
+		{
+			auxJuego = (Juego*)ll_get(cloneJuego, i);
+
+			if(auxJuego != NULL && !Juego_getId(auxJuego, &idJuego) && !Juego_getGenero(auxJuego, &genero)
+					&& genero == 1)
+			{
+				for(int j=0; j<ll_len(pArrayArcade); j++)
+				{
+					auxArcade = (Arcade*)ll_get(pArrayArcade, j);
+					if(auxArcade != NULL && !Arcade_getFk_juego(auxArcade, &fkJuego)
+						&& fkJuego == 	idJuego )
+					{
+						ll_add(cloneArcade, auxArcade);
+					}
+
+				}
+			}
+		}
+
+		retorno = informes_PrintArcadesJuegos(cloneArcade, cloneJuego);
+
+		ll_deleteLinkedList(cloneArcade);
+		ll_deleteLinkedList(cloneJuego);
+
+	}
+
+	return retorno;
+}
+
+static int informes_sortNameJuego(void* aux1,void* aux2)
+{
+	int retorno = 0;
+	Juego* juego1;
+	Juego* juego2;
+	char nameJuego1[JUE_LEN_NAME];
+	char nameJuego2[JUE_LEN_NAME];
+
+	if(aux1 != NULL && aux2 != NULL)
+	{
+		juego1 = (Juego*)aux1;
+		juego2 = (Juego*)aux2;
+		if(!Juego_getName(juego1, nameJuego1) && !Juego_getName(juego2, nameJuego2))
+		{
+			retorno = strcmpi(nameJuego1,nameJuego2);
+		}
+
+	}
+
+	return retorno;
+}
+
+static int informes_PrintArcadesJuegos(LinkedList* pArrayArcade,LinkedList* pArrayJuego)
+{
+	int retorno = -1;
+	char nameJuego[JUE_LEN_NAME];
+	int genero;
+	int cantJugadores;
+	int idJuego;
+	int fkJuego;
+	Juego* auxJuego;
+	Arcade* auxArcade;
+	int flag=0;
+	char tiposJuegos [5][20]={{"Plataforma"},{"Aventura"},{"Laberinto"},{"Estrategia"},{"Otro"}};
+
+	if(pArrayArcade != NULL && pArrayJuego != NULL)
+	{
+		retorno = 0;
+		for(int i =0; i<ll_len(pArrayJuego); i++)
+		{
+			auxJuego = (Juego*)ll_get(pArrayJuego, i);
+
+			if(auxJuego != NULL && !Juego_getId(auxJuego, &idJuego))
+			{
+				for(int j=0; j<ll_len(pArrayArcade);j++)
+				{
+					auxArcade = (Arcade*)ll_get(pArrayArcade, j);
+
+					if(!Arcade_getFk_juego(auxArcade, &fkJuego) && fkJuego == idJuego
+						&& !Juego_getGenero(auxJuego, &genero) && !Juego_getName(auxJuego, nameJuego)
+						&& !Arcade_getJugadores(auxArcade, &cantJugadores))
+					{
+						if(!flag)
+						{
+							printf("\n|%-40s|%-20s|%-20s|\n","NOMBRES DE JUEGOS","GENERO","CANTIDAD JUGADORES");
+							flag = 1;
+						}
+						printf("|%-40s|%-20s|%-20d|\n",nameJuego,tiposJuegos[genero-1],cantJugadores);
+					}
+				}
+			}
+		}
+		//informando nombre de juego, género y cantidad de jugadores que soporta el arcade. El listado deberá estar ordenado por nombre de juego
+	}
+
+	return retorno;
+}
 
 /*
 int informe_SalonArcade(LinkedList* pArrayArcade,LinkedList* pArraySalon)

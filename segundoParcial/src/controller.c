@@ -406,6 +406,14 @@ int controller_Informes(char letra,LinkedList* pArrayArcade,LinkedList* pArraySa
 				break;
 			case 'g':
 			case 'G':
+				if(!informes_Arcades(pArrayArcade, pArrayJuego))
+				{
+					puts("\nArcades con tipo de sonido Mono y con tipo de juego plataforma");
+				}
+				else
+				{
+					puts("\nAlgo salio mal, intentelo mas tarde...");
+				}
 				break;
 			case 'h':
 			case 'H':

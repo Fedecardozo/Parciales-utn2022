@@ -540,7 +540,7 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
     		{
     			voidAux = ll_get(this, i);
     			voidAux2 = ll_get(this, i+1);
-    			if((order && pFunc(voidAux,voidAux2)) || (!order && pFunc(voidAux,voidAux2)<0))
+    			if((order && pFunc(voidAux,voidAux2)>0) || (!order && pFunc(voidAux,voidAux2)<0))
     			{
     				ll_set(this, i, voidAux2);
     				ll_set(this, i+1, voidAux);
