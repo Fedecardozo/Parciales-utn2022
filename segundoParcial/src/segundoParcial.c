@@ -16,7 +16,6 @@ int main(void) {
 	LinkedList* listaJuegos = ll_newLinkedList();
 	LinkedList* listaArcades = ll_newLinkedList();
 
-	Arcade* aux;
 
 	if(!controller_Inicio(listaArcades, listaSalones, listaJuegos, pathArcade, pathJuego, pathSalon))
 	{

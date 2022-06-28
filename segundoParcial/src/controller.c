@@ -381,6 +381,15 @@ int controller_Informes(char letra,LinkedList* pArrayArcade,LinkedList* pArraySa
 				break;
 			case 'e':
 			case 'E':
+				cantidad = informes_Salon_porIdArcade(pArrayArcade, pArraySalon, pArrayJuego);
+				if(cantidad == -1)
+				{
+					puts("\nHUBO UN ERROR, INTENTALO MAS TARDE! ");
+				}
+				else if(cantidad == -2)
+				{
+					puts("\nNO SE ENCONTRO EL SALON! ");
+				}
 				break;
 			case 'f':
 			case 'F':

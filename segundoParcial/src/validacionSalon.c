@@ -58,7 +58,7 @@ int Salon_print(Salon* s)
 	char direccion[SAL_LEN_DIREC];
 	int tipoSalon;
 
-	char salon [5][20]={{"Shopping"},{"Restaurante"},{"Bar"},{"Hotel"},{"Otro"}};
+	char salon [5][20]={{"Shopping"},{"Local"},{"Bar"},{"Hotel"},{"Otro"}};
 
 	if(s != NULL && !Salon_getId(s, &id) && !Salon_getName(s, name)
 			&& !Salon_getDireccion(s, direccion) && !Salon_getTipoSalon(s, &tipoSalon))

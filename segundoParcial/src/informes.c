@@ -183,3 +183,61 @@ int informes_Salon_Completo(LinkedList* pArrayArcade,LinkedList* pArraySalon,Lin
 
 	return retorno;
 }
+
+//E) Listar todos los arcades de un salón determinado ingresando su ID. Informar nombre y tipo de salón, listar todos los
+//arcade con sus datos junto con el nombre del juego que lo compone
+int informes_Salon_porIdArcade(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego)
+{
+	int retorno=-1;
+	Arcade* aux;
+	Juego* auxJuego;
+	Salon* auxSalon;
+	int fkSalon;
+	int fkJuego;
+	char nameJuego[JUE_LEN_NAME];
+	char nameSalon[SAL_LEN_NAME];
+	int tipoSalon;
+	int flag=0;
+	int auxId;
+	char tipoSalonStr [5][20]={{"Shopping"},{"Local"},{"Bar"},{"Hotel"},{"Otro"}};
+
+	if(pArrayArcade != NULL && pArraySalon != NULL && pArrayJuego != NULL)
+	{
+		retorno = utn_getNumero(&auxId, "\nIngrese id del salon a obtener: ", "\nError! Ingrese nuevamente: ",
+				1, 9999, 2);
+		if(!retorno)
+		{
+			auxSalon = Salon_getSalon(pArraySalon, auxId);
+			if(auxSalon != NULL && !Salon_getName(auxSalon, nameSalon) && !Salon_getTipoSalon(auxSalon, &tipoSalon))
+			{
+				for(int i=0; i<ll_len(pArrayArcade); i++)
+				{
+					aux = (Arcade*)ll_get(pArrayArcade, i);
+					if(!Arcade_getFk_salon(aux, &fkSalon) && fkSalon == auxId && !Arcade_getFk_juego(aux, &fkJuego))
+					{
+						auxJuego = Juego_getJuego(pArrayJuego, fkJuego);
+						if(auxJuego != NULL && !Juego_getName(auxJuego, nameJuego))
+						{
+							if(!flag)
+							{
+								printf("|%-40s|%-30s|%-40s|%-10s|%-40s|%-10s|%-10s|%-20s|%-10s|%-10s|\n"
+										,"NOMBRE SALON","TIPO SALON","NOMBRE DEL JUEGO","ID ARCADE","NACIONALIDAD"
+										,"JUGADORES","FICHAS","TIPO SONIDO","FK SALON","FK JUEGO");
+								flag=1;
+							}
+							printf("|%-40s|%-30s|%-40s",nameSalon,tipoSalonStr[tipoSalon-1],nameJuego);
+							Arcade_print(aux);
+						}
+					}
+				}
+			}
+			else
+			{
+				retorno = -2;
+			}
+		}
+
+	}
+
+	return retorno;
+}

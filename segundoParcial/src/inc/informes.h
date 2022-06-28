@@ -14,5 +14,6 @@ int informes_Salon_MasCuatroArcades(LinkedList* pArrayArcade,LinkedList* pArrayS
 int informes_Arcade_MasDosJugadores(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego);
 int informes_Salon_PorId(LinkedList* pArraySalon);
 int informes_Salon_Completo(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego);
+int informes_Salon_porIdArcade(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego);
 
 #endif /* INC_INFORMES_H_ */
