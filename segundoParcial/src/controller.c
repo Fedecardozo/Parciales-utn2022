@@ -393,6 +393,16 @@ int controller_Informes(char letra,LinkedList* pArrayArcade,LinkedList* pArraySa
 				break;
 			case 'f':
 			case 'F':
+				cantidad = informes_Salon_masArcadedOrdenados(pArrayArcade, pArraySalon, controller_ListarArcade);
+				if(cantidad > 0)
+				{
+					printf("\nCantidad de arcades del salon con mas arcades es: %d\n",cantidad);
+				}
+				else
+				{
+					puts("\nHUBO UN ERROR, INTENTALO MAS TARDE! ");
+				}
+
 				break;
 			case 'g':
 			case 'G':

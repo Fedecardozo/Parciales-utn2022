@@ -10,10 +10,13 @@
 #include "validacionJuego.h"
 #include "validacionArcade.h"
 
+typedef int (*pFuncListar)(LinkedList* );
+
 int informes_Salon_MasCuatroArcades(LinkedList* pArrayArcade,LinkedList* pArraySalon);
 int informes_Arcade_MasDosJugadores(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego);
 int informes_Salon_PorId(LinkedList* pArraySalon);
 int informes_Salon_Completo(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego);
 int informes_Salon_porIdArcade(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego);
+int informes_Salon_masArcadedOrdenados(LinkedList* pArrayArcade,LinkedList* pArraySalon,pFuncListar listArcade);
 
 #endif /* INC_INFORMES_H_ */

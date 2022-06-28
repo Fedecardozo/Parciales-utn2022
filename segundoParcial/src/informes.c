@@ -1,6 +1,7 @@
 
 #include "./inc/informes.h"
 
+static int informes_ordenArcade(void* aux1,void* aux2);
 
 int informes_Salon_MasCuatroArcades(LinkedList* pArrayArcade,LinkedList* pArraySalon)
 {
@@ -241,3 +242,160 @@ int informes_Salon_porIdArcade(LinkedList* pArrayArcade,LinkedList* pArraySalon,
 
 	return retorno;
 }
+
+//F) Imprimir el salón con más cantidad de arcade, indicando todos los datos del salón y la cantidad de arcade que posee.
+//Ordenado de manera ascendente.
+int informes_Salon_masArcades(LinkedList* pArrayArcade,LinkedList* pArraySalon)
+{
+	int retorno = -1;
+	Salon* auxSalon;
+	Arcade* auxArcade;
+	int idSalon;
+	int fkSalon;
+	int contArcade=0;
+	int maximo = 0;
+
+	if(pArrayArcade != NULL && pArraySalon != NULL)
+	{
+		retorno = 0;
+
+		for(int i=0; i<ll_len(pArraySalon);i++)
+		{
+			auxSalon = (Salon*)ll_get(pArraySalon, i);
+
+			if(auxSalon != NULL && !Salon_getId(auxSalon, &idSalon))
+			{
+				for(int j=0; j<ll_len(pArrayArcade);j++)
+				{
+					auxArcade = (Arcade*)ll_get(pArrayArcade, j);
+					if(auxArcade != NULL && !Arcade_getFk_salon(auxArcade, &fkSalon)
+					 && idSalon == fkSalon)
+					{
+						contArcade++;
+					}
+				}
+				if(contArcade > maximo)
+				{
+					maximo = contArcade;
+					retorno = idSalon;
+				}
+				contArcade = 0;
+			}
+		}
+	}
+
+	return retorno;
+}
+
+//F) Imprimir el salón con más cantidad de arcade, indicando todos los datos del salón y la cantidad de arcade que posee.
+//Ordenado de manera ascendente.
+int informes_Salon_masArcadedOrdenados(LinkedList* pArrayArcade,LinkedList* pArraySalon,pFuncListar listArcade)
+{
+	int retorno = -1;
+	int idSalonMaximo;
+	Arcade* auxArcade;
+	int fkSalon;
+	LinkedList* cloneArcades = ll_newLinkedList();
+
+	if(pArrayArcade != NULL && pArraySalon != NULL && listArcade != NULL)
+	{
+		idSalonMaximo = informes_Salon_masArcades(pArrayArcade, pArraySalon);
+
+		if(idSalonMaximo > 0)
+		{
+			for(int i=0; i<ll_len(pArrayArcade);i++)
+			{
+				auxArcade = (Arcade*)ll_get(pArrayArcade, i);
+				if(auxArcade != NULL && !Arcade_getFk_salon(auxArcade, &fkSalon)
+					&& fkSalon == idSalonMaximo )
+				{
+					ll_add(cloneArcades, auxArcade);
+				}
+			}
+		}
+		//Imprimir arcades de manera ascendete
+		if(!ll_sort(cloneArcades, informes_ordenArcade, 1))
+		{
+			if(Salon_printByIdMsj(pArraySalon, idSalonMaximo, "\n\t\t*** SALON CON MAS ARCADES ***", "\nUPS! HUBO UN ERROR")>=0)
+			{
+				puts("\n\t\t*** ARCADES DEL SALON ORDENADOS POR FICHAS***");
+				//funcion de imprimir arcade
+				if(!listArcade(cloneArcades))
+				{
+					retorno = ll_len(cloneArcades);
+				}
+			}
+
+		}
+
+		ll_deleteLinkedList(cloneArcades);
+	}
+
+	return retorno;
+}
+
+static int informes_ordenArcade(void* aux1,void* aux2)
+{
+	int retorno = 0;
+	Arcade* juego1;
+	Arcade* juego2;
+	int fichas1;
+	int fichas2;
+
+	if(aux1 != NULL && aux2 != NULL)
+	{
+		juego1 = (Arcade*)aux1;
+		juego2 = (Arcade*)aux2;
+		if(!Arcade_getFichas(juego1, &fichas1) && !Arcade_getFichas(juego2, &fichas2))
+		{
+			if(fichas1 > fichas2)
+			{
+				retorno = 1;
+			}
+			else if(fichas1 < fichas2)
+			{
+				retorno = -1;
+			}
+		}
+
+	}
+
+	return retorno;
+}
+
+
+/*
+int informe_SalonArcade(LinkedList* pArrayArcade,LinkedList* pArraySalon)
+{
+	int retorno = -1;
+	Salon* auxSalon;
+	Arcade* auxArcade;
+	int idSalon;
+	int fkSalon;
+	int contArcade=0;
+
+	if(pArrayArcade != NULL && pArraySalon != NULL)
+	{
+		retorno = 0;
+
+		for(int i=0; i<ll_len(pArraySalon);i++)
+		{
+			auxSalon = (Salon*)ll_get(pArraySalon, i);
+
+			if(auxSalon != NULL && !Salon_getId(auxSalon, &idSalon))
+			{
+				for(int j=0; j<ll_len(pArrayArcade);j++)
+				{
+					auxArcade = (Arcade*)ll_get(pArrayArcade, j);
+					if(auxArcade != NULL && !Arcade_getFk_salon(auxArcade, &fkSalon)
+					 && idSalon == fkSalon)
+					{
+						contArcade++;
+					}
+				}
+			}
+		}
+	}
+
+	return retorno;
+}*/
