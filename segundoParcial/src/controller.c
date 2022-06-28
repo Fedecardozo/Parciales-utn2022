@@ -348,6 +348,15 @@ int controller_Informes(char letra,LinkedList* pArrayArcade,LinkedList* pArraySa
 				break;
 			case 'b':
 			case 'B':
+				cantidad = informes_Arcade_Mas2Jugadores(pArrayArcade, pArraySalon, pArrayJuego);
+				if(cantidad > 0)
+				{
+					printf("\nTotal de Arcades con mas de 2 jugadores son: %d",cantidad);
+				}
+				else
+				{
+					puts("\nNo hay Arcades con mas de 2 jugadores");
+				}
 				break;
 			case 'c':
 			case 'C':

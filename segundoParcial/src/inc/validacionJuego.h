@@ -14,5 +14,6 @@ int Juego_pedirDatos(Juego* j);
 int Juego_print(Juego* j);
 int Juego_printById(LinkedList* pArrayJuego,int id);
 int Juego_printByIdMsj(LinkedList* pArrayJuego,int id,char* msj,char* msjError);
+Juego* Juego_getJuego(LinkedList* pArrayJuego,int id);
 
 #endif /* INC_VALIDACIONJUEGO_H_ */

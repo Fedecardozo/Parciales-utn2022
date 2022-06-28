@@ -138,3 +138,22 @@ int Juego_printByIdMsj(LinkedList* pArrayJuego,int id,char* msj,char* msjError)
 
 	return indice;
 }
+
+Juego* Juego_getJuego(LinkedList* pArrayJuego,int id)
+{
+	int indice;
+	Juego* aux=NULL;
+
+	if(pArrayJuego != NULL)
+	{
+		indice = Juego_ById(pArrayJuego, id);
+
+		if(indice >= 0)
+		{
+			aux = (Juego*)ll_get(pArrayJuego, indice);
+		}
+
+	}
+
+	return aux;
+}

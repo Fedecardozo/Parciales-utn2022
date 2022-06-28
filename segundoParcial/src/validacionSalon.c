@@ -171,3 +171,22 @@ int Salon_printByIdMsj(LinkedList* pArraySalon,int id,char* msj,char* msjError)
 
 	return indice;
 }
+
+Salon* Salon_getSalon(LinkedList* pArraySalon,int id)
+{
+	int indice;
+	Salon* aux=NULL;
+
+	if(pArraySalon != NULL)
+	{
+		indice = Salon_ById(pArraySalon, id);
+
+		if(indice >= 0)
+		{
+			aux = (Salon*)ll_get(pArraySalon, indice);
+		}
+
+	}
+
+	return aux;
+}
