@@ -336,7 +336,7 @@ int controller_Informes(char letra,LinkedList* pArrayArcade,LinkedList* pArraySa
 		{
 			case 'a':
 			case 'A':
-				cantidad = informes_Salon_Mas4Arcades(pArrayArcade, pArraySalon);
+				cantidad = informes_Salon_MasCuatroArcades(pArrayArcade, pArraySalon);
 				if(cantidad > 0)
 				{
 					printf("\nTotal de salones con mas de 4 arcades son: %d",cantidad);
@@ -348,7 +348,7 @@ int controller_Informes(char letra,LinkedList* pArrayArcade,LinkedList* pArraySa
 				break;
 			case 'b':
 			case 'B':
-				cantidad = informes_Arcade_Mas2Jugadores(pArrayArcade, pArraySalon, pArrayJuego);
+				cantidad = informes_Arcade_MasDosJugadores(pArrayArcade, pArraySalon, pArrayJuego);
 				if(cantidad > 0)
 				{
 					printf("\nTotal de Arcades con mas de 2 jugadores son: %d",cantidad);
@@ -360,6 +360,12 @@ int controller_Informes(char letra,LinkedList* pArrayArcade,LinkedList* pArraySa
 				break;
 			case 'c':
 			case 'C':
+
+				if(informes_Salon_PorId(pArraySalon)<0)
+				{
+					puts("\nHUBO UN PROBLEMA INTENTELO MAS TARDE!");
+				}
+
 				break;
 			case 'd':
 			case 'D':

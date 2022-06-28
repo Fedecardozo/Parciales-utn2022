@@ -2,7 +2,7 @@
 #include "./inc/informes.h"
 
 
-int informes_Salon_Mas4Arcades(LinkedList* pArrayArcade,LinkedList* pArraySalon)
+int informes_Salon_MasCuatroArcades(LinkedList* pArrayArcade,LinkedList* pArraySalon)
 {
 	int retorno = -1;
 	int cont=0;
@@ -47,8 +47,7 @@ int informes_Salon_Mas4Arcades(LinkedList* pArrayArcade,LinkedList* pArraySalon)
 
 //B)  Listar  los  arcade  para  más  de  2  jugadores,  indicando  ID  de  arcade,  cantidad  de  jugadores,  nombre  del juego,  su
 //género y nombre del salón al que pertenece.
-
-int informes_Arcade_Mas2Jugadores(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego)
+int informes_Arcade_MasDosJugadores(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego)
 {
 	int retorno=-1;
 	Arcade* aux;
@@ -95,6 +94,26 @@ int informes_Arcade_Mas2Jugadores(LinkedList* pArrayArcade,LinkedList* pArraySal
 				}
 
 			}
+		}
+	}
+
+	return retorno;
+}
+
+//C) Listar toda la información de un salón en específico ingresado por el usuario. Imprimir ID de salón, nombre, tipo y
+//dirección.
+int informes_Salon_PorId(LinkedList* pArraySalon)
+{
+	int retorno = -1;
+	int auxId;
+
+	if(pArraySalon != NULL)
+	{
+		retorno=utn_getNumero(&auxId, "\nIngrese id del salon a obtener: ", "\nError! Ingrese nuevamente: ",
+				1, 9999, 2);
+		if(!retorno && Salon_printByIdMsj(pArraySalon, auxId, "\n\tSALON OBTENIDO", "\nNo se encontro el salon!")>=0)
+		{
+			retorno=0;
 		}
 	}
 

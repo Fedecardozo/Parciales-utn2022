@@ -10,7 +10,8 @@
 #include "validacionJuego.h"
 #include "validacionArcade.h"
 
-int informes_Salon_Mas4Arcades(LinkedList* pArrayArcade,LinkedList* pArraySalon);
-int informes_Arcade_Mas2Jugadores(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego);
+int informes_Salon_MasCuatroArcades(LinkedList* pArrayArcade,LinkedList* pArraySalon);
+int informes_Arcade_MasDosJugadores(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego);
+int informes_Salon_PorId(LinkedList* pArraySalon);
 
 #endif /* INC_INFORMES_H_ */

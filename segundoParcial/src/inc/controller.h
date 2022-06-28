@@ -12,6 +12,7 @@
 #include "validacionJuego.h"
 #include "validacionArcade.h"
 #include "parser.h"
+#include "informes.h"
 
 //INICIO PROGRAMA
 int controller_Inicio(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego
