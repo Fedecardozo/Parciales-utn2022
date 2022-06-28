@@ -432,7 +432,7 @@ int controller_Informes(char letra,LinkedList* pArrayArcade,LinkedList* pArraySa
 				break;
 			case 'h':
 			case 'H':
-				if(informes_printSalonMenosArcades(pArrayArcade, pArraySalon)<0)
+				if(informes_printSalonMenosArcades2(pArrayArcade, pArraySalon)<0)
 				{
 					puts("\nAlgo salio mal, intentelo mas tarde...");
 				}

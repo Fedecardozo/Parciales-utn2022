@@ -20,5 +20,6 @@ int informes_Salon_porIdArcade(LinkedList* pArrayArcade,LinkedList* pArraySalon,
 int informes_Salon_masArcadedOrdenados(LinkedList* pArrayArcade,LinkedList* pArraySalon,pFuncListar listArcade);
 int informes_Arcades(LinkedList* pArrayArcade,LinkedList* pArrayJuego);
 int informes_printSalonMenosArcades(LinkedList* pArrayArcade,LinkedList* pArraySalon);
+int informes_printSalonMenosArcades2(LinkedList* pArrayArcade,LinkedList* pArraySalon);
 
 #endif /* INC_INFORMES_H_ */

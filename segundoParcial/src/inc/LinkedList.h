@@ -54,3 +54,4 @@ LinkedList* ll_subList(LinkedList* this,int from,int to);
 LinkedList* ll_clone(LinkedList* this);
 int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order);
 LinkedList* ll_filtrer(LinkedList* this,LinkedList* this2,int (*pFunc)(void*,LinkedList*));
+LinkedList* ll_filtrer2(LinkedList* this,LinkedList* this2,int (*pFunc)(void*,void*));
