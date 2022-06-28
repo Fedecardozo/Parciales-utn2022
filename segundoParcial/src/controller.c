@@ -432,13 +432,14 @@ int controller_Informes(char letra,LinkedList* pArrayArcade,LinkedList* pArraySa
 				break;
 			case 'h':
 			case 'H':
-				if(informes_printSalonMenosArcades2(pArrayArcade, pArraySalon)<0)
+				cantidad = informes_printSalonMenosArcades2(pArrayArcade, pArraySalon);
+				if(cantidad<0)
 				{
 					puts("\nAlgo salio mal, intentelo mas tarde...");
 				}
 				else
 				{
-					puts("\nArcades con tipo de sonido MONO en Shoppings");
+					printf("\nArcades con tipo de sonido MONO en Shoppings \nEl total es: %d",cantidad);
 				}
 
 				break;

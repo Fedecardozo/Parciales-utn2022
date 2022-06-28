@@ -556,7 +556,11 @@ int informes_Salon_PorId(LinkedList* pArraySalon)
 
 //PUNTO (C) FIN
 
-
+/// @fn int informes_printSalonMenosArcades2(LinkedList*, LinkedList*)
+/// @brief Filtro por salon tipo shopping y con arcades con sondido mono
+/// @param pArrayArcade
+/// @param pArraySalon
+/// @return -1 nulls, >0 cantidad de arcades
 int informes_printSalonMenosArcades(LinkedList* pArrayArcade,LinkedList* pArraySalon)
 {
 	LinkedList* cloneArcade;
@@ -612,6 +616,11 @@ static int informes_fkSalonListado(void* auxArcade,LinkedList* pArraySalon)
 	return retorno;
 }
 
+/// @fn int informes_fkSalonListado2(void*, void*)
+/// @brief
+/// @param auxArcade
+/// @param auxSalon
+/// @return
 static int informes_fkSalonListado2(void* auxArcade,void* auxSalon)
 {
 
@@ -640,6 +649,11 @@ static int informes_fkSalonListado2(void* auxArcade,void* auxSalon)
 
 }
 
+/// @fn int informes_printSalonMenosArcades2(LinkedList*, LinkedList*)
+/// @brief Filtro por salon tipo shopping y con arcades con sondido mono
+/// @param pArrayArcade
+/// @param pArraySalon
+/// @return -1 nulls, >0 cantidad de arcades
 int informes_printSalonMenosArcades2(LinkedList* pArrayArcade,LinkedList* pArraySalon)
 {
 	LinkedList* cloneArcade;
