@@ -369,6 +369,15 @@ int controller_Informes(char letra,LinkedList* pArrayArcade,LinkedList* pArraySa
 				break;
 			case 'd':
 			case 'D':
+				cantidad = informes_Salon_Completo(pArrayArcade, pArraySalon, pArrayJuego);
+				if(cantidad > 0)
+				{
+					printf("\nTotal de salones completos: %d",cantidad);
+				}
+				else
+				{
+					puts("\nNo hay salones completos");
+				}
 				break;
 			case 'e':
 			case 'E':

@@ -119,3 +119,67 @@ int informes_Salon_PorId(LinkedList* pArraySalon)
 
 	return retorno;
 }
+
+//D) Un salón se encuentra completo si posee al menos 4 juegos del género plataforma, 3 del género laberinto y 5 del
+//género Aventura. Listar los salones que cumplan con este mínimo de requisito.
+int informes_Salon_Completo(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego)
+{
+	int retorno = -1;
+	int contPlataforma=0;
+	int contLaberinto=0;
+	int contAventura=0;
+	int idSalon;
+	int fkSalon;
+	int fkJuego;
+	int genero;
+	Arcade* auxArcade;
+	Salon* auxSalon;
+	Juego* auxJuego;
+
+	if(pArrayArcade != NULL && pArraySalon != NULL && pArrayJuego != NULL)
+	{
+		retorno = 0;
+		for(int i=0; i<ll_len(pArraySalon); i++)
+		{
+			auxSalon =(Salon*)ll_get(pArraySalon, i);
+			if(auxSalon != NULL && !Salon_getId(auxSalon,&idSalon))
+			{
+				for(int j=0; j<ll_len(pArrayArcade); j++)
+				{
+					auxArcade =(Arcade*)ll_get(pArrayArcade, j);
+
+					if(auxArcade != NULL && !Arcade_getFk_salon(auxArcade,&fkSalon)
+						&& idSalon == fkSalon && !Arcade_getFk_juego(auxArcade, &fkJuego))
+					{
+						auxJuego = Juego_getJuego(pArrayJuego, fkJuego);
+
+						if(auxJuego != NULL && !Juego_getGenero(auxJuego, &genero))
+						{
+							switch(genero)
+							{
+								case 1:contPlataforma++; break;
+								case 2:contAventura++; break;
+								case 3:contLaberinto++; break;
+
+							}
+						}
+
+					}
+				}
+
+				if(contPlataforma >=4 && contAventura >=5 && contLaberinto >=3)
+				{
+					Salon_print(auxSalon);
+					retorno++;
+				}
+				contPlataforma=0;
+				contAventura=0;
+				contLaberinto=0;
+
+			}
+
+		}
+	}
+
+	return retorno;
+}

@@ -16,28 +16,82 @@ int main(void) {
 	LinkedList* listaJuegos = ll_newLinkedList();
 	LinkedList* listaArcades = ll_newLinkedList();
 
+	Arcade* aux;
+
 	if(!controller_Inicio(listaArcades, listaSalones, listaJuegos, pathArcade, pathJuego, pathSalon))
 	{
 		puts("\nBIENVENIDO!");
-		/*for(int i=0; i<4;i++)
+		/*//4 plataforma, 3 laberinto, 5 aventura
+		//platforma: 13,14,19,20
+		//laberinto: 5,6,8,9
+		//aventura: 2,11,15,26,33
+		for(int i=0; i<15;i++)
 		{
 			aux = (Arcade*)ll_get(listaArcades, i);
 			Arcade_setFk_salon(aux, 5);
+			if(i<5)
+			{
+				Arcade_setFk_juego(aux, 13);
+			}
+			else if(i<9)
+			{
+				Arcade_setFk_juego(aux, 6);
+			}
+			else
+			{
+				Arcade_setFk_juego(aux, 11);
+			}
 		}
-		for(int i=4; i<9;i++)
+		for(int i=15; i<30;i++)
 		{
 			aux = (Arcade*)ll_get(listaArcades, i);
 			Arcade_setFk_salon(aux, 8);
+			if(i<21)
+			{
+				Arcade_setFk_juego(aux, 14);
+			}
+			else if(i<25)
+			{
+				Arcade_setFk_juego(aux, 8);
+			}
+			else
+			{
+				Arcade_setFk_juego(aux, 26);
+			}
 		}
-		for(int i=9; i<13;i++)
+		for(int i=30; i<45;i++)
 		{
 			aux = (Arcade*)ll_get(listaArcades, i);
 			Arcade_setFk_salon(aux, 7);
+			if(i<36)
+			{
+				Arcade_setFk_juego(aux, 19);
+			}
+			else if(i<41)
+			{
+				Arcade_setFk_juego(aux, 5);
+			}
+			else
+			{
+				Arcade_setFk_juego(aux, 15);
+			}
 		}
-		for(int i=16; i<23;i++)
+		for(int i=45; i<60;i++)
 		{
 			aux = (Arcade*)ll_get(listaArcades, i);
 			Arcade_setFk_salon(aux, 11);
+			if(i<51)
+			{
+				Arcade_setFk_juego(aux, 20);
+			}
+			else if(i<54)
+			{
+				Arcade_setFk_juego(aux, 9);
+			}
+			else
+			{
+				Arcade_setFk_juego(aux, 33);
+			}
 		}*/
 	}
 	else
