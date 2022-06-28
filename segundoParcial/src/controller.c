@@ -82,6 +82,7 @@ int controller_ListarSalon(LinkedList* pArraySalon)
 	if(pArraySalon != NULL && ll_len(pArraySalon)>0)
 	{
 		retorno = 0;
+		printf("\n|%-10s|%-40s|%-30s|%-20s|\n","ID SALON","NOMBRE DEL SALON","DIRECCION DEL SALON","TIPO DE SALON");
 		for(int i=0; i<ll_len(pArraySalon); i++)
 		{
 			aux = (Salon*)ll_get(pArraySalon, i);
@@ -144,6 +145,7 @@ int controller_AltaArcade(LinkedList* pArrayArcade,LinkedList* pArraySalon,Linke
 
 	if(pArrayArcade != NULL && pArraySalon != NULL && pArrayJuego != NULL)
 	{
+		puts("\nALTA DE ARCADE\n");
 		if(!Arcade_pedirDatos(&aux,pArrayJuego,pArraySalon))
 		{
 			auxId = Arcade_generadorId();
@@ -175,6 +177,8 @@ int controller_ListarArcade(LinkedList* pArrayArcade)
 	if(pArrayArcade != NULL && ll_len(pArrayArcade)>0)
 	{
 		retorno = 0;
+		printf("\n|%-10s|%-40s|%-10s|%-10s|%-20s|%-10s|%-10s|\n"
+				,"ID ARCADE","NACIONALIDAD ARCADE","JUGADORES","FICHAS","TIPO SONIDO","FK SALON","FK JUEGO");
 		for(int i=0; i<ll_len(pArrayArcade); i++)
 		{
 			aux = (Arcade*)ll_get(pArrayArcade, i);
@@ -309,6 +313,7 @@ int controller_ListarJuego(LinkedList* pArrayJuego)
 	if(pArrayJuego != NULL && ll_len(pArrayJuego)>0)
 	{
 		retorno = 0;
+		printf("\n|%-10s|%-40s|%-40s|%-20s|\n","ID JUEGO","NOMBRE DEL JUEGO","EMPRESA DEL JUEGO","GENERO DE JUEGO");
 		for(int i=0; i<ll_len(pArrayJuego); i++)
 		{
 			aux = (Juego*)ll_get(pArrayJuego, i);
