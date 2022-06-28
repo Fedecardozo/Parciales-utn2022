@@ -19,6 +19,10 @@ static int getCorreo(char* pResultado,int longitud);
 static int esChar(char* cadena, int limite);
 static int getChar(char* pResultado);
 static int getShortInt(short int* pResultado);
+static int sonLetrasSpace(char*pLetras,int longitud);
+static int getStringLetrasEspacio(char* pResultado,int longitud);
+static int getStringLetrasYnumerosSpace(char* pResultado,int longitud);
+static int sonLetrasYnumerosSpace(char*pLetras,int longitud);
 
 /**
  * \brief 	Lee de stdin hasta que encuentra un '\n' o hasta que haya copiado en cadena
@@ -570,26 +574,29 @@ static int getStringLetras(char* pResultado,int longitud){
 ///\return Retorna 1 (vardadero) si la cadena es numerica y 0 (falso) si no lo es
 static int sonLetras(char*pLetras,int longitud)
 {
-	int retorno= 1;
+	int retorno= 0;
 	int i;
 
 	// No valido los datos por que ya lo hace myGets
+	if(pLetras != NULL && pLetras[0] != '\0')
+	{
+		retorno = 1;
+		for (i = 0; i<longitud && pLetras[i]!='\0'; i++){
 
-	for (i = 0; i<longitud && pLetras[i]!='\0'; i++){
+			if(pLetras[i] >= 'A' && pLetras[i] <= 'Z'){
 
-		if(pLetras[i] >= 'A' && pLetras[i] <= 'Z'){
+				continue;
 
-			continue;
+			}
+
+			if(pLetras[i] < 'a' || pLetras[i] > 'z'){
+
+				retorno=0;
+				break;
+
+			}
 
 		}
-
-		if(pLetras[i] < 'a' || pLetras[i] > 'z'){
-
-			retorno=0;
-			break;
-
-		}
-
 	}
 
 
@@ -672,7 +679,7 @@ int utn_getStringLetrasYnumeros(char* pResultado, char* mensaje, char* mensajeEr
 
 				printf("%s",mensaje);
 
-				//Si esta todo bien lo copia en el puntero y sale de la iteracion retornado cero
+				//Si esta tod bien lo copia en el puntero y sale de la iteracion retornado cero
 				if(getStringLetrasYnumeros(bufferString,longitud)==0){
 
 					strncpy(pResultado,bufferString,longitud);
@@ -728,42 +735,45 @@ static int getStringLetrasYnumeros(char* pResultado,int longitud){
 ///\return Retorna 1 (vardadero) si la cadena es numerica y 0 (falso) si no lo es
 static int sonLetrasYnumeros(char*pLetras,int longitud)
 {
-	int retorno= 1;
+	int retorno= 0;
 	int i;
 
 	// No valido los datos por que ya lo hace myGets
+	if(pLetras != NULL && pLetras[0]=='\0')
+	{
+		retorno = 1;
+		for (i = 0; i<longitud && pLetras[i]!='\0'; i++){
 
-	for (i = 0; i<longitud && pLetras[i]!='\0'; i++){
 
+			if(pLetras[i] >= 'A' && pLetras[i] <= 'Z'){
 
-		if(pLetras[i] >= 'A' && pLetras[i] <= 'Z'){
+				//printf("\nb");
+				continue;
 
-			//printf("\nb");
-			continue;
+			}
+
+			if(pLetras[i] >= 'a' && pLetras[i] <= 'z'){
+
+				//printf("\nb");
+				continue;
+
+			}
+			if(pLetras[i] >= '0' && pLetras[i] <= '9'){
+
+				//printf("\nc");
+				continue;
+
+			}
+			if((pLetras[i] < '0' ) || ( pLetras[i] > '9' && pLetras[i] <'A')
+					|| (pLetras[i]>'Z' && pLetras[i] <'a') ||( pLetras[i] >'z')){
+
+				//printf("\nd");
+				retorno= 0;
+				break;
+
+			}
 
 		}
-
-		if(pLetras[i] >= 'a' && pLetras[i] <= 'z'){
-
-			//printf("\nb");
-			continue;
-
-		}
-		if(pLetras[i] >= '0' && pLetras[i] <= '9'){
-
-			//printf("\nc");
-			continue;
-
-		}
-		if((pLetras[i] < '0' ) || ( pLetras[i] > '9' && pLetras[i] <'A')
-				|| (pLetras[i]>'Z' && pLetras[i] <'a') ||( pLetras[i] >'z')){
-
-			//printf("\nd");
-			retorno= 0;
-			break;
-
-		}
-
 	}
 
 
@@ -1007,16 +1017,16 @@ int printCuitSeparacion(char* cuit){
 ///\return Retorna 1 (vardadero) si la cadena es numerica y 0 (falso) si no lo es
 static int esUnCorreo(char*pLetras,int longitud)
 {
-	int retorno= 1;
+	int retorno= 0;
 	int i;
 	int j;
 	int flag=0;
 
-	if(pLetras!=NULL && longitud >0 &&
+	if(pLetras!=NULL && pLetras[0]!='\0' && longitud >0 &&
 		pLetras[strlen(pLetras)-4]=='.' && pLetras[strlen(pLetras)-3]=='C'
 		&& pLetras[strlen(pLetras)-2]=='O' && pLetras[strlen(pLetras)-1]=='M')
 	{
-
+		retorno = 1;
 		for(j=0 ; j<longitud && pLetras[j]!='\0' ; j++){
 
 			if(pLetras[j] == '@' && (pLetras[j+1]<'A' || pLetras[j+1]>'Z'))
@@ -1169,4 +1179,262 @@ int utn_getStringCorreo(char* pResultado, char* mensaje, char* mensajeError,int 
 
 	return retorno;
 
+}
+
+/// @fn int utn_getString(char*, char*, char*, int, int)
+/// @brief Solicita una cadena al usuario, luego de verificarlo devuelve el resultado
+/// @param pResultado Puntero al espacio de memoria donde se dejara el resultado de la funcion
+/// @param mensaje Es el mensaje a ser mostrado
+/// @param mensajeError Es el mensaje a ser mostrado
+/// @param longitud Es el tamaño del array
+/// @param intentos es la cantidad de oportunidades
+/// @return 0 si salio bien y -1 si salio mal
+int utn_getStringMayusculayMinusculaConSpace(char* pResultado, char* mensaje, char* mensajeError,int longitud, int intentos){
+
+	int retorno=-1;
+
+	//printf("%d",longitud);
+	if(pResultado != NULL && mensaje != NULL && mensajeError != NULL && longitud >0 && intentos>=0){
+
+		//Creo la variable aca para primero validar de longitud sea mayor a 0
+		char bufferString[longitud];
+
+		do{
+
+			printf("%s",mensaje);
+
+			//Si esta tod bien lo copia en el puntero y sale de la iteracion retornado cero
+			if(getStringLetrasEspacio(bufferString,longitud)==0
+					&& mayusculaMinuscula(bufferString,longitud)==0){
+
+				strncpy(pResultado,bufferString,longitud);
+				retorno=0;
+				break;
+
+			}else if(intentos>0){
+
+				printf("%s",mensajeError);
+
+			}
+
+			intentos--;
+
+
+		}while(intentos>=0);
+
+
+	}
+
+
+	return retorno;
+
+}
+
+/// \brief Obtien una cadena
+///\param pResultado Puntero al espacio de memoria donde se dejara el resultado de la funcion
+///\return Retorna 0 (EXITO) si se obtiene un numero entero y -1 (ERROR) si no
+static int getStringLetrasEspacio(char* pResultado,int longitud){
+
+	int retorno =-1;
+	char bufferString[200];//Esto despues se va a cambiar
+
+
+	if(pResultado != NULL &&
+		myGets(bufferString,sizeof(bufferString))==0
+			&& sonLetrasSpace(bufferString,sizeof(bufferString))){
+
+		strncpy(pResultado,bufferString,longitud);
+		retorno=0;
+
+	}
+
+	return retorno;
+}
+
+///\brief Verifica si la cadena ingresada son letras
+///\param pLetras Cadena de caracteres a ser analizada
+///\return Retorna 1 (vardadero) si la cadena es numerica y 0 (falso) si no lo es
+static int sonLetrasSpace(char*pLetras,int longitud)
+{
+	int retorno= 0;
+	int i;
+
+	if(pLetras != NULL && pLetras[0] != '\0')
+	{
+		retorno = 1;
+		for (i = 0; i<longitud && pLetras[i]!='\0'; i++){
+
+			if(pLetras[i] == ' ' || (pLetras[i] >= 'A' && pLetras[i] <= 'Z')){
+
+				continue;
+
+			}
+
+			if(pLetras[i] < 'a' || pLetras[i] > 'z'){
+
+				retorno=0;
+				break;
+
+			}
+
+		}
+	}
+
+
+	return retorno;
+}
+
+/// @fn int utn_getStringLetrasYnumeros(char*, char*, char*, int, int)
+/// @brief Solicita una cadena al usuario, luego de verificarlo devuelve el resultado
+/// @param pResultado Puntero al espacio de memoria donde se dejara el resultado de la funcion
+/// @param mensaje Es el mensaje a ser mostrado
+/// @param mensajeError Es el mensaje a ser mostrado
+/// @param limite Es el tamaño del array
+/// @param intentos es la cantidad de oportunidades
+/// @return 0 si salio bien y -1 si salio mal
+int utn_getStringLetrasYnumerosSpace(char* pResultado, char* mensaje, char* mensajeError,int longitud, int intentos){
+
+	int retorno=-1;
+
+		//printf("%d",longitud);
+		if(pResultado != NULL && mensaje != NULL && mensajeError != NULL && longitud >0 && intentos>=0){
+
+			//Creo la variable aca para primero validar de longitud sea mayor a 0
+			char bufferString[longitud];
+
+			do{
+
+				printf("%s",mensaje);
+
+				//Si esta tod bien lo copia en el puntero y sale de la iteracion retornado cero
+				if(getStringLetrasYnumerosSpace(bufferString,longitud)==0){
+
+					strncpy(pResultado,bufferString,longitud);
+					retorno=0;
+					break;
+
+				}else if(intentos>0){
+
+					printf("%s",mensajeError);
+
+				}
+
+				intentos--;
+
+
+			}while(intentos>=0);
+
+
+		}
+
+
+		return retorno;
+
+
+}
+
+
+/// \brief Obtien una cadena de letras y numeros
+///\param pResultado Puntero al espacio de memoria donde se dejara el resultado de la funcion
+///\return Retorna 0 (EXITO) si se obtiene un numero entero y -1 (ERROR) si no
+static int getStringLetrasYnumerosSpace(char* pResultado,int longitud){
+
+	int retorno =-1;
+	char bufferString[200];//Esto despues se va a cambiar
+
+
+	if(pResultado != NULL &&
+		myGets(bufferString,sizeof(bufferString))==0
+		&& sonLetrasYnumerosSpace(bufferString,sizeof(bufferString))){
+
+		strncpy(pResultado,bufferString,longitud);
+		retorno=0;
+
+	}
+
+	return retorno;
+
+}
+
+
+///\brief Verifica si la cadena ingresada son letras y numeros
+///\param pLetras Cadena de caracteres a ser analizada
+///\return Retorna 1 (vardadero) si la cadena es numerica y 0 (falso) si no lo es
+static int sonLetrasYnumerosSpace(char*pLetras,int longitud)
+{
+	int retorno= 0;
+	int i;
+
+	// No valido los datos por que ya lo hace myGets
+
+	if(pLetras != NULL && pLetras[0] != '\0')
+	{
+		retorno = 1;
+		for (i = 0; i<longitud && pLetras[i]!='\0'; i++){
+
+
+			if(pLetras[i] == ' ' || (pLetras[i] >= 'A' && pLetras[i] <= 'Z')){
+
+				//printf("\nb");
+				continue;
+
+			}
+
+			if(pLetras[i] >= 'a' && pLetras[i] <= 'z'){
+
+				//printf("\nb");
+				continue;
+
+			}
+			if(pLetras[i] >= '0' && pLetras[i] <= '9'){
+
+				//printf("\nc");
+				continue;
+
+			}
+			if((pLetras[i] < '0' ) || ( pLetras[i] > '9' && pLetras[i] <'A')
+					|| (pLetras[i]>'Z' && pLetras[i] <'a') ||( pLetras[i] >'z')){
+
+				//printf("\nd");
+				retorno= 0;
+				break;
+
+			}
+
+		}
+	}
+
+
+
+	return retorno;
+}
+
+
+/// @fn int utn_getDomicilio(char*, char*, char*, int, int)
+/// @brief Obtiene un domicilio
+/// @param pResultado
+/// @param mensaje
+/// @param mensajeError
+/// @param longitud
+/// @param intentos
+/// @return -1 Datos nullos, errores. 0 OK
+int utn_getDomicilio(char* pResultado, char* mensaje, char* mensajeError,int longitud, int intentos)
+{
+	int retorno = -1;
+	char buffer[longitud];
+	int altura;
+
+	if(pResultado != NULL && mensaje != NULL && mensajeError != NULL && longitud >0 && intentos >= 0)
+	{
+
+		if(!utn_getStringMayusculayMinusculaConSpace(buffer,mensaje , mensajeError, longitud, intentos)
+			&& !utn_getNumero(&altura, "\nIngrese altura: ", "\nAltura incorrecta! Ingrese nuevamente: ",
+					1, 9999, intentos))
+		{
+			sprintf(pResultado,"%s %d",buffer,altura);
+			retorno=0;
+		}
+	}
+
+	return retorno;
 }

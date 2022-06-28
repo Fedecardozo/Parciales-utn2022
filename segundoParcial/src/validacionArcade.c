@@ -55,7 +55,7 @@ int Arcade_pedirDatos(Arcade* a,LinkedList* pArrayJuego,LinkedList* pArraySalon)
 			&& !utn_getNumero(&a1.fk_Salon, "\nIngrese Id del salon: ", "\nError! Ingrese nuevamente: ",
 					1, 9999, 2) && Salon_printByIdMsj(pArraySalon, a1.fk_Salon,
 							"\n**** Se agrego este salon ****","No existe tal salon en el sistema") >=0
-			&& !utn_getStringMayusculayMinuscula(a1.nacionalidad,"\nIngrese nacionalida:",
+			&& !utn_getStringMayusculayMinusculaConSpace(a1.nacionalidad,"\nIngrese nacionalida:",
 				"\nError! nacionalidad invalida ", LEN_NACIONALIDAD, 2)
 			&& !utn_getNumero(&a1.cantidadJugadores, "\nIngrese cantidad de jugadores: ",
 					"\nError! ingrese nuevamente: ", 1, 4, 2)

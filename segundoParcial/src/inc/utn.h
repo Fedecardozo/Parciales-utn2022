@@ -25,5 +25,8 @@ int utn_getStringLetrasYnumerosLimite(char* pResultado, char* mensaje, char* men
 int utn_getCuit(char* pResultado, char* mensaje, char* mensajeError, int intentos,int msjAyuda);
 int printCuitSeparacion(char* cuit);
 int utn_getStringCorreo(char* pResultado, char* mensaje, char* mensajeError,int longitud, int intentos);
+int utn_getStringMayusculayMinusculaConSpace(char* pResultado, char* mensaje, char* mensajeError,int longitud, int intentos);
+int utn_getStringLetrasYnumerosSpace(char* pResultado, char* mensaje, char* mensajeError,int longitud, int intentos);
+int utn_getDomicilio(char* pResultado, char* mensaje, char* mensajeError,int longitud, int intentos);
 
 #endif /* UTN_H_ */

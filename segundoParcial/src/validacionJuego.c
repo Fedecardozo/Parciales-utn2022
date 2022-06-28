@@ -44,9 +44,9 @@ int Juego_pedirDatos(Juego* j){
 
 	if(j!=NULL)
 	{
-		if(!utn_getStringMayusculayMinuscula(j1.name,"\nIngrese nombre del Juego:",
+		if(!utn_getStringLetrasYnumerosSpace(j1.name,"\nIngrese nombre del Juego:",
 				"\nError! Nombre invalido ", JUE_LEN_NAME, 2)
-			&& !utn_getString(j1.empresa, "\nIngrese nombre empresa: ", "\nError! empresa invalida",
+			&& !utn_getStringLetrasYnumerosSpace(j1.empresa, "\nIngrese nombre de la empresa: ", "\nError! empresa invalida",
 					JUE_LEN_EMPRESA, 2)
 			&& !utn_getNumero(&j1.genero, "\n1- Plataforma"
 					"\n2- Aventura"

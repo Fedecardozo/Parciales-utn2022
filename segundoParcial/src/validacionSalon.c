@@ -46,9 +46,9 @@ int Salon_pedirDatos(Salon* s){
 	if(s!=NULL)
 	{
 
-		if(!utn_getStringMayusculayMinuscula(s1.name,"\nIngrese nombre del salon:",
+		if(!utn_getStringLetrasYnumerosSpace(s1.name,"\nIngrese nombre del salon:",
 				"\nError! Nombre invalido ", SAL_LEN_NAME, 2)
-			&& !utn_getString(s1.direccion, "\nIngrese direccion: ", "\nError! direccion invalida",
+			&& !utn_getDomicilio(s1.direccion, "\nIngrese nombre completo de la calle: ", "\nError! direccion invalida",
 					SAL_LEN_DIREC, 2)
 			&& !utn_getNumero(&s1.tipoSalon, "\n1- Shopping"
 					"\n2- Restaurante"

@@ -145,7 +145,7 @@ int controller_AltaArcade(LinkedList* pArrayArcade,LinkedList* pArraySalon,Linke
 
 	if(pArrayArcade != NULL && pArraySalon != NULL && pArrayJuego != NULL)
 	{
-		puts("\nALTA DE ARCADE\n");
+		puts("\n*** ALTA DE ARCADE ***");
 		if(!Arcade_pedirDatos(&aux,pArrayJuego,pArraySalon))
 		{
 			auxId = Arcade_generadorId();
