@@ -28,6 +28,7 @@ int main(void) {
 
 	do
 	{
+		//Lista filtrada
 		opcion = menu();
 
 		switch(opcion)
@@ -181,9 +182,10 @@ char subMenu()
 			"\nE)Lista de los arcades de un salon en especifico"
 			"\nF)Salon con mas arcades"
 			"\nG)Listado de los arcades con sonido MONO y genero de juego PLATAFORMA"
-			"\nH)Salir de sub menu"
+			"\nH)Listado de los arcades con sonido MONO en Shoppings"
+			"\nI)Salir de sub menu"
 			"\nINGRESE OPCION: "
-			,"\nOPCION INVALIDA.\nIngrese nuevamente: ", 'a', 'h', 2);
+			,"\nOPCION INVALIDA.\nIngrese nuevamente: ", 'a', 'i', 2);
 
 	return letra;
 }

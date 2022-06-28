@@ -556,3 +556,40 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 
 }
 
+/** \brief Filtra los elementos de la lista utilizando la funcion criterio recibida como parametro
+ * \param pList LinkedList* Puntero a la lista
+ * \param pFunc (*pFunc) Puntero a la funcion criterio
+ * \param order int  [1] Indica orden ascendente - [0] Indica orden descendente
+ * \return int Retorna  (-1) Error: si el puntero a la listas es NULL
+                                ( 0) Si ok
+ */
+LinkedList* ll_filtrer(LinkedList* this,LinkedList* this2,int (*pFunc)(void*,LinkedList*))
+{
+    void* auxElement= NULL;
+    LinkedList* listaClone=NULL;
+
+    if(this != NULL && pFunc != NULL)
+    {
+    	listaClone = ll_newLinkedList();
+
+    	if(listaClone != NULL)
+    	{
+			for(int i=0; i < ll_len(this);i++)
+			{
+				auxElement = ll_get(this, i);
+
+				if(!pFunc(auxElement,this2))
+				{
+					ll_add(listaClone, auxElement);
+				}
+
+
+			}
+    	}
+
+    }
+
+    return listaClone;
+
+}
+

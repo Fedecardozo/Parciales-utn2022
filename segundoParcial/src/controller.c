@@ -432,6 +432,18 @@ int controller_Informes(char letra,LinkedList* pArrayArcade,LinkedList* pArraySa
 				break;
 			case 'h':
 			case 'H':
+				if(informes_printSalonMenosArcades(pArrayArcade, pArraySalon)<0)
+				{
+					puts("\nAlgo salio mal, intentelo mas tarde...");
+				}
+				else
+				{
+					puts("\nArcades con tipo de sonido MONO en Shoppings");
+				}
+
+				break;
+			case 'i':
+			case 'I':
 				puts("\nMENU INCIAL");
 				break;
 			default: retorno=-2; break;

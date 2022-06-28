@@ -6,6 +6,7 @@ static int informes_sortNameJuego(void* aux1,void* aux2);
 static int informes_PrintArcadesJuegos(LinkedList* pArrayArcade,LinkedList* pArrayJuego);
 static LinkedList* informe_ArcadeRecorrer(LinkedList* pArrayArcade,int id,int(*pFunc)(Arcade*,int));
 static int informes_fkSalon(Arcade* auxArcade,int id);
+static int informes_fkSalonListado(void* auxArcade,LinkedList* pArraySalon);
 
 
 //B)  Listar  los  arcade  para  más  de  2  jugadores,  indicando  ID  de  arcade,  cantidad  de  jugadores,  nombre  del juego,  su
@@ -553,3 +554,63 @@ int informes_Salon_PorId(LinkedList* pArraySalon)
 }
 
 //PUNTO (C) FIN
+
+
+int informes_printSalonMenosArcades(LinkedList* pArrayArcade,LinkedList* pArraySalon)
+{
+	LinkedList* cloneArcade;
+	int retorno = -1;
+
+	if(pArrayArcade != NULL && pArraySalon != NULL)
+	{
+
+		cloneArcade = ll_filtrer(pArrayArcade,pArraySalon, informes_fkSalonListado);
+		retorno = ll_len(cloneArcade);
+		for(int i= 0; i<retorno ;i++)
+		{
+			Arcade_print((Arcade*)ll_get(cloneArcade, i));
+		}
+
+		ll_deleteLinkedList(cloneArcade);
+
+	}
+
+	return retorno;
+}
+
+/// @fn int informes_fkSalonListado(void* aux,LinkedList* pArraySalon)
+/// @param auxArcade
+/// @param id
+/// @return -1 Nulls, 0 ok
+static int informes_fkSalonListado(void* auxArcade,LinkedList* pArraySalon)
+{
+	int retorno=-1;
+	int fkSalon;
+	int idSalon;
+	int tipo;
+	int sonido;
+	Arcade* castArcade;
+
+	if(auxArcade != NULL && pArraySalon != NULL)
+	{
+		castArcade= (Arcade*)auxArcade;
+
+		for(int i=0; i<ll_len(pArraySalon);i++)
+		{
+			if(castArcade != NULL && pArraySalon != NULL && !Arcade_getTipoSonido(castArcade, &sonido)
+			&& sonido == 1 && !Salon_getId((Salon*)ll_get(pArraySalon, i), &idSalon)
+					&& !Arcade_getFk_salon(castArcade, &fkSalon) && fkSalon == idSalon
+					&& !Salon_getTipoSalon((Salon*)ll_get(pArraySalon, i), &tipo) && tipo == 1)
+			{
+
+				retorno=0;
+			}
+		}
+
+	}
+	return retorno;
+}
+
+
+
+
