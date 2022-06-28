@@ -9,6 +9,7 @@
 #include "Salon.h"
 #include "funcionesPropias.h"
 
+int Salon_InicioId(int idInicial);
 int Salon_generadorId();
 int Salon_pedirDatos(Salon* s);
 int Salon_print(Salon* s);

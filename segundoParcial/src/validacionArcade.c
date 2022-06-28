@@ -5,15 +5,35 @@ static int Arcade_ById(LinkedList* pArrayArcade,int id);
 static int queModifcar(Arcade* list,LinkedList* pArrayJuego,pFuncListar listJuego);
 static int opcionesParaModifcar(int opc, Arcade* list, LinkedList* pArrayJuego,pFuncListar listJuego);
 
+static int idArcade=0;
+
+/// @fn int iniciadorId()
+/// @brief Inicializa un id
+/// @return -1datos nullos 0 hubo error al obtener nuevo id
+/// Sino Devuelve un id entero mayor a 0
+int Arcade_InicioId(int idInicial)
+{
+	int retorno=-1;
+	if(idInicial > 0)
+	{
+		idArcade = idInicial;
+	}
+	return retorno;
+
+}
+
 /// @fn int generadorId()
 /// @brief Genera un id automatico
 /// @return -1datos nullos 0 hubo error al obtener nuevo id
 /// Sino Devuelve un id entero mayor a 0
 int Arcade_generadorId()
 {
-	static int id = 1000;
-	return id++;
+	if(idArcade > 0)
+	{
+		idArcade++;
+	}
 
+	return idArcade;
 }
 
 /// @fn pide Datos al usuario

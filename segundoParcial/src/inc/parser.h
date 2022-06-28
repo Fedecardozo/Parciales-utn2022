@@ -15,6 +15,7 @@ typedef int (*funcionParseo)(FILE* ,LinkedList* );
 int parser_Salon(char*path, LinkedList* pArraySalon);
 int parser_Juego(char*path, LinkedList* pArrayJuego);
 int parser_Arcade(char*path, LinkedList* pArrayArcade);
+int parser_Id(char*path);
 
 //Binario
 int parser_Bin(char*path, LinkedList* pArray,funcionParseo parsear);

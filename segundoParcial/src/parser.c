@@ -146,6 +146,45 @@ int parser_Arcade(char*path, LinkedList* pArrayArcade)
 	return retorno;
 }
 
+/// @fn int parser_Id(char*)
+/// @brief parsea e inicializa Id
+/// @param path
+/// @return -1 nulls, 0 ok
+int parser_Id(char*path)
+{
+	int retorno =-1;
+	FILE* fileId;
+	int idAux;
+	int contador=0;
+
+	if(path != NULL)
+	{
+		fileId = fopen(path,"r");
+
+		if(fileId != NULL)
+		{
+			retorno=0;
+			do
+			{
+				if(fscanf(fileId,"%d",&idAux)>0)
+				{
+					contador++;
+					switch(contador)
+					{
+						case 1: Salon_InicioId(idAux); break;
+						case 2: Juego_InicioId(idAux); break;
+						case 3: Arcade_InicioId(idAux);break;
+					}
+				}
+
+			}while(!feof(fileId));
+		}
+
+		fclose(fileId);
+	}
+
+	return retorno;
+}
 
 //MODO BINARIO
 
@@ -178,6 +217,7 @@ int parser_Bin(char*path, LinkedList* pArray,funcionParseo parsear)
 			}while(!feof(fileGenerico));
 
 		}
+		fclose(fileGenerico);
 	}
 
 	return retorno;

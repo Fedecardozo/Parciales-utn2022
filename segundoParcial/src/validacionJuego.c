@@ -2,6 +2,22 @@
 #include "./inc/validacionJuego.h"
 
 static int Juego_ById(LinkedList* pArrayJuego,int id);
+static int idJuego=0;
+
+/// @fn int iniciadorId()
+/// @brief Inicializa un id
+/// @return -1datos nullos 0 hubo error al obtener nuevo id
+/// Sino Devuelve un id entero mayor a 0
+int Juego_InicioId(int idInicial)
+{
+	int retorno=-1;
+	if(idInicial > 0)
+	{
+		idJuego = idInicial;
+	}
+	return retorno;
+
+}
 
 /// @fn int generadorId()
 /// @brief Genera un id automatico
@@ -9,9 +25,12 @@ static int Juego_ById(LinkedList* pArrayJuego,int id);
 /// Sino Devuelve un id entero mayor a 0
 int Juego_generadorId()
 {
-	static int id = 1000;
-	return id++;
+	if(idJuego > 0)
+	{
+		idJuego++;
+	}
 
+	return idJuego;
 }
 
 /// @fn pide Datos al usuario
@@ -100,6 +119,11 @@ static int Juego_ById(LinkedList* pArrayJuego,int id)
 
 }
 
+/// @fn int Juego_printById(LinkedList*, int)
+/// @brief Imprime un juego por su id
+/// @param pArrayJuego
+/// @param id
+/// @return -1 nulls, >0 indice
 int Juego_printById(LinkedList* pArrayJuego,int id)
 {
 	int indice=-1;
@@ -117,6 +141,13 @@ int Juego_printById(LinkedList* pArrayJuego,int id)
 	return indice;
 }
 
+/// @fn int Juego_printByIdMsj(LinkedList*, int, char*, char*)
+/// @brief imprime un juego por id con mensaje
+/// @param pArrayJuego
+/// @param id
+/// @param msj
+/// @param msjError
+/// @return -1 nulls, >0 indice
 int Juego_printByIdMsj(LinkedList* pArrayJuego,int id,char* msj,char* msjError)
 {
 	int indice=-1;
@@ -139,6 +170,11 @@ int Juego_printByIdMsj(LinkedList* pArrayJuego,int id,char* msj,char* msjError)
 	return indice;
 }
 
+/// @fn Juego Juego_getJuego*(LinkedList*, int)
+/// @brief Obtiene un juego por id y lo devuelve
+/// @param pArrayJuego
+/// @param id
+/// @return Juego, o NULL
 Juego* Juego_getJuego(LinkedList* pArrayJuego,int id)
 {
 	int indice;

@@ -15,17 +15,18 @@ static int controller_SaveBin(char*path, LinkedList* pArray,int size);
 /// @param pathSalon
 /// @return -1 Parametros Nulls o error al cargar desde los archivos, 0 ok
 int controller_Inicio(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego
-		,char*pathArcade,char*pathJuego,char*pathSalon)
+		,char*pathArcade,char*pathJuego,char*pathSalon,char*pathId)
 {
 	int retorno=-1;
 
-	if(pathArcade != NULL && pathJuego != NULL && pathSalon != NULL
+	if(pathArcade != NULL && pathJuego != NULL && pathSalon != NULL && pathId != NULL
 		&& pArrayArcade != NULL && pArrayJuego != NULL && pArraySalon != NULL)
 	{
 		puts("\nESPERE! INICIANDO PROGRAMA...");
 		if(!parser_Bin(pathArcade, pArrayArcade, parser_funcArcade)
 		   && !parser_Bin(pathJuego, pArrayJuego, parser_funcJuego)
-		   && !parser_Bin(pathSalon, pArraySalon, parser_funcSalon))
+		   && !parser_Bin(pathSalon, pArraySalon, parser_funcSalon)
+		   && !parser_Id(pathId))
 		{
 			retorno=0;
 		}
@@ -221,9 +222,9 @@ int controller_RemoveArcade(LinkedList* pArrayArcade)
 
 }
 
-///brief Modificar datos de pasajero
-///param path char*
-///param pArrayListPassenger LinkedList*
+///brief Modificar datos de Arcade
+///param LinkedList* pArrayArcade
+///param LinkedList* pArrayJuego
 ///@return 1 un exito 0 ok(-1)Datos nullos (-2) No se encontro ID
 ///(-3)Ingreso mal las opciones
 ///(-4)Ingreso mal los datos a modificar
@@ -325,6 +326,13 @@ int controller_ListarJuego(LinkedList* pArrayJuego)
 
 //INFORMES
 
+/// @fn int controller_Informes(char, LinkedList*, LinkedList*, LinkedList*)
+/// @brief llama a la funciones del sub menu
+/// @param letra
+/// @param pArrayArcade
+/// @param pArraySalon
+/// @param pArrayJuego
+/// @return -1 NULLOS, -2 letra incorrecta, 0 ok
 int controller_Informes(char letra,LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego)
 {
 	int retorno = -1;
@@ -332,6 +340,7 @@ int controller_Informes(char letra,LinkedList* pArrayArcade,LinkedList* pArraySa
 
 	if(pArrayArcade != NULL &&  pArraySalon != NULL && pArrayJuego != NULL)
 	{
+		retorno=0;
 		switch(letra)
 		{
 			case 'a':
@@ -417,9 +426,11 @@ int controller_Informes(char letra,LinkedList* pArrayArcade,LinkedList* pArraySa
 				break;
 			case 'h':
 			case 'H':
+				puts("\nMENU INCIAL");
 				break;
+			default: retorno=-2; break;
 		}
-		retorno=0;
+
 	}
 
 	return retorno;

@@ -9,6 +9,7 @@
 #include "Juego.h"
 #include "funcionesPropias.h"
 
+int Juego_InicioId(int idInicial);
 int Juego_generadorId();
 int Juego_pedirDatos(Juego* j);
 int Juego_print(Juego* j);

@@ -16,7 +16,7 @@
 
 //INICIO PROGRAMA
 int controller_Inicio(LinkedList* pArrayArcade,LinkedList* pArraySalon,LinkedList* pArrayJuego
-		,char*pathArcade,char*pathJuego,char*pathSalon);
+		,char*pathArcade,char*pathJuego,char*pathSalon,char*pathId);
 
 //INICIO SALON
 int controller_AltaSalon(LinkedList* pArraySalon);

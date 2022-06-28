@@ -13,6 +13,7 @@
 
 typedef int (*pFuncListar)(LinkedList* );
 
+int Arcade_InicioId(int idInicial);
 int Arcade_generadorId();
 int Arcade_pedirDatos(Arcade* a,LinkedList* pArrayJuego,LinkedList* pArraySalon);
 int Arcade_print(Arcade* a);

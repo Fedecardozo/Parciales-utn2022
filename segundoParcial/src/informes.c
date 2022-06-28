@@ -5,6 +5,7 @@ static int informes_ordenArcade(void* aux1,void* aux2);
 static int informes_sortNameJuego(void* aux1,void* aux2);
 static int informes_PrintArcadesJuegos(LinkedList* pArrayArcade,LinkedList* pArrayJuego);
 
+//) Listar los salones con más de 4 arcade. Indicando ID de salón, nombre, dirección y tipo de salón.
 int informes_Salon_MasCuatroArcades(LinkedList* pArrayArcade,LinkedList* pArraySalon)
 {
 	int retorno = -1;
@@ -465,6 +466,7 @@ static int informes_PrintArcadesJuegos(LinkedList* pArrayArcade,LinkedList* pArr
 						&& !Juego_getGenero(auxJuego, &genero) && !Juego_getName(auxJuego, nameJuego)
 						&& !Arcade_getJugadores(auxArcade, &cantJugadores))
 					{
+//informando nombre de juego, género y cantidad de jugadores que soporta el arcade. El listado deberá estar ordenado por nombre de juego
 						if(!flag)
 						{
 							printf("\n|%-40s|%-20s|%-20s|\n","NOMBRES DE JUEGOS","GENERO","CANTIDAD JUGADORES");
@@ -475,7 +477,6 @@ static int informes_PrintArcadesJuegos(LinkedList* pArrayArcade,LinkedList* pArr
 				}
 			}
 		}
-		//informando nombre de juego, género y cantidad de jugadores que soporta el arcade. El listado deberá estar ordenado por nombre de juego
 	}
 
 	return retorno;
@@ -507,7 +508,7 @@ int informe_SalonArcade(LinkedList* pArrayArcade,LinkedList* pArraySalon)
 					if(auxArcade != NULL && !Arcade_getFk_salon(auxArcade, &fkSalon)
 					 && idSalon == fkSalon)
 					{
-						contArcade++;
+						//Funcion
 					}
 				}
 			}
@@ -516,3 +517,40 @@ int informe_SalonArcade(LinkedList* pArrayArcade,LinkedList* pArraySalon)
 
 	return retorno;
 }*/
+
+/*
+int informe_JuegoArcade(LinkedList* pArrayArcade,LinkedList* pArrayJuego)
+{
+	int retorno = -1;
+	Juego* auxJuego;
+	Arcade* auxArcade;
+	int idJuego;
+	int fkJuego;
+	int contArcade=0;
+
+	if(pArrayArcade != NULL && pArrayJuego != NULL)
+	{
+		retorno = 0;
+
+		for(int i=0; i<ll_len(pArrayJuego);i++)
+		{
+			auxJuego = (Juego*)ll_get(pArrayJuego, i);
+
+			if(auxJuego != NULL && !Juego_getId(auxJuego, &idJuego))
+			{
+				for(int j=0; j<ll_len(pArrayArcade);j++)
+				{
+					auxArcade = (Arcade*)ll_get(pArrayArcade, j);
+					if(auxArcade != NULL && !Arcade_getFk_Juego(auxArcade, &fkJuego)
+					 && idJuego == fkJuego)
+					{
+						//Funcion
+					}
+				}
+			}
+		}
+	}
+
+	return retorno;
+}*/
+

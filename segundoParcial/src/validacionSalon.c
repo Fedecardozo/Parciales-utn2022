@@ -3,15 +3,35 @@
 
 static int Salon_ById(LinkedList* pArraySalon,int id);
 
+static int idSalon=0;
+
+/// @fn int iniciadorId()
+/// @brief Inicializa un id
+/// @return -1datos nullos 0 hubo error al obtener nuevo id
+/// Sino Devuelve un id entero mayor a 0
+int Salon_InicioId(int idInicial)
+{
+	int retorno=-1;
+	if(idInicial > 0)
+	{
+		idSalon = idInicial;
+	}
+	return retorno;
+
+}
+
 /// @fn int generadorId()
 /// @brief Genera un id automatico
 /// @return -1datos nullos 0 hubo error al obtener nuevo id
 /// Sino Devuelve un id entero mayor a 0
 int Salon_generadorId()
 {
-	static int id = 1000;
-	return id++;
+	if(idSalon > 0)
+	{
+		idSalon++;
+	}
 
+	return idSalon;
 }
 
 /// @fn pide Datos al usuario
@@ -150,6 +170,13 @@ int Salon_remove(LinkedList* pArraySalon, int id)
 	return retorno;
 }
 
+/// @fn int Salon_printByIdMsj(LinkedList*, int, char*, char*)
+/// @brief obtiene un salon por id, y lo imprime con un mensaje
+/// @param pArraySalon
+/// @param id
+/// @param msj
+/// @param msjError
+/// @return -1 Null, >0 el indice
 int Salon_printByIdMsj(LinkedList* pArraySalon,int id,char* msj,char* msjError)
 {
 	int indice=-1;
@@ -172,6 +199,11 @@ int Salon_printByIdMsj(LinkedList* pArraySalon,int id,char* msj,char* msjError)
 	return indice;
 }
 
+/// @fn Salon Salon_getSalon*(LinkedList*, int)
+/// @brief devuelve un salon por Id
+/// @param pArraySalon
+/// @param id
+/// @return Salon,O NULL
 Salon* Salon_getSalon(LinkedList* pArraySalon,int id)
 {
 	int indice;
