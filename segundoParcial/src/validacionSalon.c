@@ -222,3 +222,25 @@ Salon* Salon_getSalon(LinkedList* pArraySalon,int id)
 
 	return aux;
 }
+
+/// @brief devuelve un id, a traves del indice pasado por parametro
+/// @param pArraySalon
+/// @param indice
+/// @return -1 NULL, >0 indice
+int Salon_getId_Indice(LinkedList* pArraySalon,int indice,Salon* auxSalon)
+{
+	int retorno=-1;
+	int id;
+
+	if(pArraySalon != NULL && indice < ll_len(pArraySalon))
+	{
+		auxSalon =(Salon*)ll_get(pArraySalon, indice);
+		if(auxSalon != NULL && !Salon_getId(auxSalon, &id))
+		{
+			retorno = id;
+		}
+
+	}
+
+	return retorno;
+}

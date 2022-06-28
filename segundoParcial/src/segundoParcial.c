@@ -17,12 +17,9 @@ int main(void) {
 	LinkedList* listaJuegos = ll_newLinkedList();
 	LinkedList* listaArcades = ll_newLinkedList();
 
-
 	if(!controller_Inicio(listaArcades, listaSalones, listaJuegos, pathArcade, pathJuego, pathSalon,pathId))
 	{
 		puts("\nBIENVENIDO!");
-
-		//printf("\nId Salon: %d - Id Juego: %d - Id Arcade: %d",Salon_generadorId(),Juego_generadorId(),Arcade_generadorId());
 	}
 	else
 	{
@@ -162,7 +159,7 @@ int menu()
 			"\n4. INCORPORAR ARCADE"
 			"\n5. MODIFICAR ARCADE"
 			"\n6. ELIMINAR ARCADE"
-			"\n7. IMPRIMIR ARCADE"
+			"\n7. LISTAR ARCADES"
 			"\n8. AGREGAR JUEGO"
 			"\n9. IMPRIMIR JUEGO"
 			"\n10. INFORMES"
@@ -177,10 +174,10 @@ char subMenu()
 {
 	char letra='z';
 
-	utn_getCaracter(&letra,"\nA) Listado de los salones con mas de 4 arcade"
+	utn_getCaracter(&letra,"\nA)Listado de los salones con mas de 4 arcades"
 			"\nB)Listado de los arcades para  mas  de  2  jugadores"
 			"\nC)Informacion de un salon en especifico"
-			"\nD)Filtro salones"
+			"\nD)Salones Completos"
 			"\nE)Lista de los arcades de un salon en especifico"
 			"\nF)Salon con mas arcades"
 			"\nG)Listado de los arcades con sonido MONO y genero de juego PLATAFORMA"

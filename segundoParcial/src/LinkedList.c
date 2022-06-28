@@ -549,7 +549,7 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
     		}
     		newLimite--;
 
-    	}while(flagSwap);
+    	}while(flagSwap==1);
     }
 
     return returnAux;

@@ -4,50 +4,9 @@
 static int informes_ordenArcade(void* aux1,void* aux2);
 static int informes_sortNameJuego(void* aux1,void* aux2);
 static int informes_PrintArcadesJuegos(LinkedList* pArrayArcade,LinkedList* pArrayJuego);
+static LinkedList* informe_ArcadeRecorrer(LinkedList* pArrayArcade,int id,int(*pFunc)(Arcade*,int));
+static int informes_fkSalon(Arcade* auxArcade,int id);
 
-//) Listar los salones con más de 4 arcade. Indicando ID de salón, nombre, dirección y tipo de salón.
-int informes_Salon_MasCuatroArcades(LinkedList* pArrayArcade,LinkedList* pArraySalon)
-{
-	int retorno = -1;
-	int cont=0;
-	int idSalon;
-	int fkSalon;
-	Arcade* auxArcade;
-	Salon* auxSalon;
-
-	if(pArrayArcade != NULL && pArraySalon != NULL)
-	{
-		retorno = 0;
-		for(int i=0; i<ll_len(pArraySalon); i++)
-		{
-			auxSalon =(Salon*)ll_get(pArraySalon, i);
-			if(auxSalon != NULL && !Salon_getId(auxSalon,&idSalon))
-			{
-				for(int j=0; j<ll_len(pArrayArcade); j++)
-				{
-					auxArcade =(Arcade*)ll_get(pArrayArcade, j);
-
-					if(auxArcade != NULL && !Arcade_getFk_salon(auxArcade,&fkSalon)
-						&& idSalon == fkSalon)
-					{
-						cont++;
-					}
-				}
-
-				if(cont >= 4)
-				{
-					Salon_print(auxSalon);
-					retorno++;
-				}
-				cont=0;
-
-			}
-
-		}
-	}
-
-	return retorno;
-}
 
 //B)  Listar  los  arcade  para  más  de  2  jugadores,  indicando  ID  de  arcade,  cantidad  de  jugadores,  nombre  del juego,  su
 //género y nombre del salón al que pertenece.
@@ -98,26 +57,6 @@ int informes_Arcade_MasDosJugadores(LinkedList* pArrayArcade,LinkedList* pArrayS
 				}
 
 			}
-		}
-	}
-
-	return retorno;
-}
-
-//C) Listar toda la información de un salón en específico ingresado por el usuario. Imprimir ID de salón, nombre, tipo y
-//dirección.
-int informes_Salon_PorId(LinkedList* pArraySalon)
-{
-	int retorno = -1;
-	int auxId;
-
-	if(pArraySalon != NULL)
-	{
-		retorno=utn_getNumero(&auxId, "\nIngrese id del salon a obtener: ", "\nError! Ingrese nuevamente: ",
-				1, 9999, 2);
-		if(!retorno && Salon_printByIdMsj(pArraySalon, auxId, "\n\tSALON OBTENIDO", "\nNo se encontro el salon!")>=0)
-		{
-			retorno=0;
 		}
 	}
 
@@ -337,6 +276,11 @@ int informes_Salon_masArcadedOrdenados(LinkedList* pArrayArcade,LinkedList* pArr
 	return retorno;
 }
 
+/// @fn int informes_ordenArcade(void*, void*)
+/// @brief
+/// @param aux1
+/// @param aux2
+/// @return
 static int informes_ordenArcade(void* aux1,void* aux2)
 {
 	int retorno = 0;
@@ -414,6 +358,11 @@ int informes_Arcades(LinkedList* pArrayArcade,LinkedList* pArrayJuego)
 	return retorno;
 }
 
+/// @fn int informes_sortNameJuego(void*, void*)
+/// @brief
+/// @param aux1
+/// @param aux2
+/// @return
 static int informes_sortNameJuego(void* aux1,void* aux2)
 {
 	int retorno = 0;
@@ -436,6 +385,11 @@ static int informes_sortNameJuego(void* aux1,void* aux2)
 	return retorno;
 }
 
+/// @fn int informes_PrintArcadesJuegos(LinkedList*, LinkedList*)
+/// @brief
+/// @param pArrayArcade
+/// @param pArrayJuego
+/// @return
 static int informes_PrintArcadesJuegos(LinkedList* pArrayArcade,LinkedList* pArrayJuego)
 {
 	int retorno = -1;
@@ -482,75 +436,120 @@ static int informes_PrintArcadesJuegos(LinkedList* pArrayArcade,LinkedList* pArr
 	return retorno;
 }
 
-/*
-int informe_SalonArcade(LinkedList* pArrayArcade,LinkedList* pArraySalon)
+//MEJORAS A LAS FUNCIONES
+
+//PUNTO (A) INICIO
+
+/// @fn LinkedList informe_ArcadeRecorrer*(LinkedList*, LinkedList*)
+/// @brief devuelve una LinkedList del con todos los arcades que pertenece al salon
+/// pasado por parametro(ID)
+/// @param pArrayArcade
+/// @param pArraySalon
+/// @param idSalon
+/// @return LinkedList
+static LinkedList* informe_ArcadeRecorrer(LinkedList* pArrayArcade,int id,int(*pFunc)(Arcade*,int))
+{
+	LinkedList* retorno=NULL;
+	Arcade* auxArcade;
+
+	if(pArrayArcade != NULL && pFunc != NULL)
+	{
+		retorno = ll_newLinkedList();
+
+		for(int j=0; j<ll_len(pArrayArcade);j++)
+		{
+			auxArcade = (Arcade*)ll_get(pArrayArcade, j);
+			if(!pFunc(auxArcade,id))
+			{
+				ll_add(retorno, auxArcade);
+			}
+		}
+
+	}
+
+	return retorno;
+}
+
+/// @fn int informes_fkSalon(Arcade*, int)
+/// @param auxArcade
+/// @param id
+/// @return -1 Nulls, 0 ok
+static int informes_fkSalon(Arcade* auxArcade,int id)
+{
+	int retorno=-1;
+	int fkSalon;
+
+	if(auxArcade != NULL && !Arcade_getFk_salon(auxArcade, &fkSalon)
+				 && id == fkSalon)
+	{
+		retorno=0;
+	}
+	return retorno;
+}
+
+/// @fn int informes_Salon_MasCuatroArcades(LinkedList*, LinkedList*)
+/// @brief Listar los salones con más de 4 arcade. Indicando ID de salón, nombre, dirección y tipo de salón.
+/// @param pArrayArcade
+/// @param pArraySalon
+/// @return -1 NULL, >0 cantidad de salones
+int informes_Salon_MasCuatroArcades(LinkedList* pArrayArcade,LinkedList* pArraySalon)
 {
 	int retorno = -1;
-	Salon* auxSalon;
-	Arcade* auxArcade;
 	int idSalon;
-	int fkSalon;
-	int contArcade=0;
+	LinkedList* listaAux;
 
 	if(pArrayArcade != NULL && pArraySalon != NULL)
 	{
 		retorno = 0;
 
-		for(int i=0; i<ll_len(pArraySalon);i++)
+		for(int i=0 ;i < ll_len(pArraySalon); i++)
 		{
-			auxSalon = (Salon*)ll_get(pArraySalon, i);
-
-			if(auxSalon != NULL && !Salon_getId(auxSalon, &idSalon))
+			//Obtengo id del salon a traves del indice
+			if(!Salon_getId((Salon*)ll_get(pArraySalon, i), &idSalon) && idSalon > 0)
 			{
-				for(int j=0; j<ll_len(pArrayArcade);j++)
+				//Obtengo una lista de los arcade del salon
+				listaAux = informe_ArcadeRecorrer(pArrayArcade, idSalon,informes_fkSalon);
+				if(listaAux != NULL && ll_len(listaAux) >= 4)
 				{
-					auxArcade = (Arcade*)ll_get(pArrayArcade, j);
-					if(auxArcade != NULL && !Arcade_getFk_salon(auxArcade, &fkSalon)
-					 && idSalon == fkSalon)
-					{
-						//Funcion
-					}
+					//Imprimo salon
+					Salon_print((Salon*)ll_get(pArraySalon, i));
+					retorno++;
 				}
 			}
+
 		}
+
+		ll_deleteLinkedList(listaAux);
 	}
 
 	return retorno;
-}*/
+}
 
-/*
-int informe_JuegoArcade(LinkedList* pArrayArcade,LinkedList* pArrayJuego)
+//PUNTO (A) FIN
+
+//PUNTO (C) INCIO
+
+/// @fn int informes_Salon_PorId(LinkedList*)
+/// @brief  Listar toda la información de un salón en específico ingresado por el usuario. Imprimir ID de salón, nombre, tipo y
+///dirección.
+/// @param pArraySalon
+/// @return -1, NULLS O ERROR, 0 OK
+int informes_Salon_PorId(LinkedList* pArraySalon)
 {
 	int retorno = -1;
-	Juego* auxJuego;
-	Arcade* auxArcade;
-	int idJuego;
-	int fkJuego;
-	int contArcade=0;
+	int auxId;
 
-	if(pArrayArcade != NULL && pArrayJuego != NULL)
+	if(pArraySalon != NULL)
 	{
-		retorno = 0;
-
-		for(int i=0; i<ll_len(pArrayJuego);i++)
+		retorno=utn_getNumero(&auxId, "\nIngrese id del salon a obtener: ", "\nError! Ingrese nuevamente: ",
+				1, 9999, 2);
+		if(!retorno && Salon_printByIdMsj(pArraySalon, auxId, "\n\tSALON OBTENIDO", "\nNo se encontro el salon!")>=0)
 		{
-			auxJuego = (Juego*)ll_get(pArrayJuego, i);
-
-			if(auxJuego != NULL && !Juego_getId(auxJuego, &idJuego))
-			{
-				for(int j=0; j<ll_len(pArrayArcade);j++)
-				{
-					auxArcade = (Arcade*)ll_get(pArrayArcade, j);
-					if(auxArcade != NULL && !Arcade_getFk_Juego(auxArcade, &fkJuego)
-					 && idJuego == fkJuego)
-					{
-						//Funcion
-					}
-				}
-			}
+			retorno=0;
 		}
 	}
 
 	return retorno;
-}*/
+}
 
+//PUNTO (C) FIN
